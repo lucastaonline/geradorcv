@@ -22,8 +22,8 @@ export default function ComprarSucessoPage() {
           Obrigado pela compra!
         </h1>
         <p className="mt-4 text-base text-ink-600">
-          Seu pagamento foi aprovado. Você receberá um e-mail em breve com o link para usar
-          seus créditos. Use sempre o mesmo e-mail para consumir seus créditos.
+          Seu pagamento foi aprovado. Você já pode consumir seus créditos no próprio site.
+          Use sempre o mesmo e-mail da compra.
         </p>
         <Link href="/#cta" className="btn-primary mt-10 inline-flex">
           Melhorar meu currículo

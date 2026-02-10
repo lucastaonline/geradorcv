@@ -134,7 +134,7 @@ function ComprarContent() {
               className="w-full rounded-lg border border-ink-800/20 px-3 py-2.5 text-sm text-primary-950 placeholder:text-ink-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
             />
             <p className="mt-1 text-xs text-ink-500">
-              Você receberá o link para usar seus créditos neste e-mail.
+              Use seus créditos no próprio site com este e-mail.
             </p>
           </div>
 
