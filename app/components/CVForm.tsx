@@ -150,7 +150,7 @@ export default function CVForm() {
             disabled={status === 'loading'}
           />
           <p className="mt-1 text-xs text-primary-400">
-            Use o mesmo e-mail que você usou na compra para consumir seus créditos.
+            A primeira otimização é grátis; não é preciso comprar créditos. Nas próximas, use o mesmo e-mail da compra para consumir seus créditos.
           </p>
         </div>
         <div>

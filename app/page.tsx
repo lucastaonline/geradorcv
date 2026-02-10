@@ -60,7 +60,7 @@ export default function Home() {
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-3xl text-center">
               <p className="hero-item mb-5 inline-flex items-center rounded-full border border-primary-200/80 bg-primary-50/80 px-3.5 py-1.5 text-xs font-medium text-primary-700">
-                Um CV para cada vaga. Sem esforço.
+                Experimente grátis — otimize seu primeiro currículo sem comprar créditos.
               </p>
               <h1 className="hero-item font-display text-4xl font-bold tracking-tight text-primary-950 sm:text-5xl lg:text-6xl lg:leading-[1.1]">
                 Seu currículo não está te chamando para entrevistas?
