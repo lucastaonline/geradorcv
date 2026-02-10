@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: 30 58 138;
+  --primary-950: 15 23 42;
+  --cta: 5 150 105;
+  --ink: 15 23 42;
+  --ink-muted: 100 116 139;
+  --font-inter: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-plus-jakarta: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-primary-950 antialiased;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Linear/Notion-style: fundo limpo, sem gradiente pesado */
+.gradient-mesh {
+  background:
+    radial-gradient(ellipse 70% 50% at 50% -10%, rgba(30, 58, 138, 0.06), transparent),
+    radial-gradient(ellipse 50% 40% at 80% 20%, rgba(5, 150, 105, 0.04), transparent);
+}
+
+/* Animações sutis — substituem framer-motion */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes headerIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-header {
+  animation: headerIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.hero-item {
+  opacity: 0;
+  animation: fadeInUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.hero-item:nth-child(1) { animation-delay: 0s; }
+.hero-item:nth-child(2) { animation-delay: 0.05s; }
+.hero-item:nth-child(3) { animation-delay: 0.1s; }
+.hero-item:nth-child(4) { animation-delay: 0.15s; }
+.hero-item:nth-child(5) { animation-delay: 0.2s; }
+.hero-item:nth-child(6) { animation-delay: 0.25s; }
+.hero-item:nth-child(7) { animation-delay: 0.3s; }
+.hero-item:nth-child(8) { animation-delay: 0.35s; }
+
+.section-item {
+  opacity: 0;
+  animation: fadeInUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.card-hover {
+  @apply transition-all duration-300 hover:shadow-lg hover:shadow-primary-950/5 hover:-translate-y-0.5;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg bg-cta-500 px-5 py-2.5 text-sm font-medium text-white transition-all duration-200 hover:bg-cta-600 active:bg-cta-700;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-ink-800/30 bg-white px-5 py-2.5 text-sm font-medium text-primary-950 transition-all duration-200 hover:bg-primary-50 hover:border-primary-200 active:bg-primary-100;
+}

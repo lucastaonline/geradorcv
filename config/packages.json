@@ -1,0 +1,26 @@
+[
+  {
+    "credits": 1,
+    "price": 9,
+    "title": "1 crédito - CV Tailor",
+    "label": "1 currículo"
+  },
+  {
+    "credits": 10,
+    "price": 19,
+    "title": "10 créditos - CV Tailor",
+    "label": "10 currículos"
+  },
+  {
+    "credits": 30,
+    "price": 39,
+    "title": "30 créditos - CV Tailor",
+    "label": "30 currículos"
+  },
+  {
+    "credits": 50,
+    "price": 59,
+    "title": "50 créditos - CV Tailor",
+    "label": "50 currículos"
+  }
+]
