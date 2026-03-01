@@ -3,7 +3,10 @@
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useState, Suspense } from 'react'
+import { FileText, Check } from 'lucide-react'
 import { PACKAGES } from '@/lib/packages'
+import { Button, buttonVariants } from '@/app/components/ui/button'
+import { cn } from '@/lib/utils'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -57,67 +60,79 @@ function ComprarContent() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <header className="border-b border-ink-800/10 bg-white">
-        <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-background">
+      <header className="border-b border-border/50 bg-background/95 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center">
+              <FileText className="w-5 h-5 text-primary-foreground" />
+            </div>
+            <span className="text-xl font-bold text-foreground">CVMatch</span>
+          </Link>
           <Link
             href="/"
-            className="font-display text-lg font-semibold tracking-tight text-primary-950"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
-            CV <span className="text-primary-600">Tailor</span>
-          </Link>
-          <Link href="/" className="text-sm font-medium text-ink-600 hover:text-primary-950">
-            Voltar
+            Voltar ao site
           </Link>
         </div>
       </header>
 
-      <main className="mx-auto max-w-xl px-4 py-16 sm:px-6 lg:px-8">
-        <h1 className="font-display text-2xl font-semibold tracking-tight text-primary-950 sm:text-3xl">
-          Comprar créditos
+      <main className="container mx-auto px-4 py-12 sm:py-16 max-w-2xl">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          Comprar <span className="text-gradient">créditos</span>
         </h1>
-        <p className="mt-2 text-base text-ink-600">
-          Cada crédito permite melhorar 1 currículo. Use quando quiser, sem expiração.
+        <p className="mt-2 text-muted-foreground">
+          Cada crédito permite melhorar 1 currículo. Use quando quiser, sem expiração. A primeira otimização é grátis.
         </p>
 
         {erro === '1' && (
-          <div className="mt-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+          <div className="mt-6 rounded-xl border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive">
             O pagamento não foi aprovado. Tente novamente ou escolha outra forma de pagamento.
           </div>
         )}
         {pendente === '1' && (
-          <div className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+          <div className="mt-6 rounded-xl border border-primary/30 bg-primary/5 p-4 text-sm text-foreground">
             Seu pagamento está em processamento. Você receberá um e-mail quando for aprovado.
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="mt-10 space-y-8">
           <div>
-            <p className="mb-3 text-sm font-medium text-primary-950">Escolha o pacote</p>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {PACKAGES.map((p) => (
-                <button
-                  key={p.credits}
-                  type="button"
-                  onClick={() => setSelectedCredits(p.credits)}
-                  className={`rounded-xl border-2 p-4 text-left transition-colors ${
-                    selectedCredits === p.credits
-                      ? 'border-primary-600 bg-primary-50'
-                      : 'border-ink-800/10 bg-white hover:border-primary-200'
-                  }`}
-                >
-                  <span className="font-display font-semibold text-primary-950">
-                    {p.credits} {p.credits === 1 ? 'crédito' : 'créditos'}
-                  </span>
-                  <p className="mt-1 text-2xl font-bold text-primary-600">R$ {p.price}</p>
-                  <p className="text-sm text-ink-600">{p.label}</p>
-                </button>
-              ))}
+            <p className="mb-4 text-sm font-medium text-foreground">Escolha o pacote</p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {PACKAGES.map((p) => {
+                const selected = selectedCredits === p.credits
+                return (
+                  <button
+                    key={p.credits}
+                    type="button"
+                    onClick={() => setSelectedCredits(p.credits)}
+                    className={cn(
+                      'relative rounded-2xl border-2 p-6 text-left transition-all duration-200',
+                      selected
+                        ? 'border-primary bg-primary/10 shadow-soft ring-2 ring-primary/30'
+                        : 'border-border bg-card hover:border-primary/40 hover:bg-muted/30'
+                    )}
+                  >
+                    {selected && (
+                      <div className="absolute top-4 right-4 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                        <Check className="h-4 w-4" />
+                      </div>
+                    )}
+                    <span className="text-lg font-semibold text-foreground">
+                      {p.credits} {p.credits === 1 ? 'crédito' : 'créditos'}
+                    </span>
+                    <p className="mt-2 text-2xl font-bold text-primary">R$ {p.price}</p>
+                    <p className="mt-1 text-sm text-muted-foreground">{p.label}</p>
+                  </button>
+                )
+              })}
             </div>
           </div>
 
           <div>
-            <label htmlFor="email" className="mb-2 block text-sm font-medium text-primary-950">
+            <label htmlFor="email" className="mb-2 block text-sm font-medium text-foreground">
               Seu e-mail
             </label>
             <input
@@ -131,39 +146,41 @@ function ComprarContent() {
               }}
               placeholder="seu@email.com"
               required
-              className="w-full rounded-lg border border-ink-800/20 px-3 py-2.5 text-sm text-primary-950 placeholder:text-ink-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+              className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
             />
-            <p className="mt-1 text-xs text-ink-500">
-              Use seus créditos no próprio site com este e-mail.
+            <p className="mt-1 text-xs text-muted-foreground">
+              Use seus créditos no site com este e-mail.
             </p>
           </div>
 
-          <div className="rounded-xl border border-ink-800/10 bg-[#fafafa] p-4">
-            <p className="text-sm font-medium text-primary-950">Resumo</p>
-            <p className="mt-1 text-sm text-ink-600">
+          <div className="rounded-2xl border border-border bg-card p-6 shadow-soft">
+            <p className="text-sm font-semibold text-foreground">Resumo</p>
+            <p className="mt-2 text-foreground">
               {pkg.credits} {pkg.credits === 1 ? 'crédito' : 'créditos'} — R$ {pkg.price}
             </p>
-            <p className="mt-2 text-xs text-ink-500">
+            <p className="mt-3 text-xs text-muted-foreground">
               Pagamento processado pelo Mercado Pago (PIX, cartão, boleto).
             </p>
           </div>
 
           {errorMessage && (
-            <p className="text-sm text-red-600" role="alert">
+            <p className="text-sm text-destructive" role="alert">
               {errorMessage}
             </p>
           )}
 
-          <button
+          <Button
             type="submit"
             disabled={isDisabled}
-            className="btn-primary w-full"
+            variant="hero"
+            size="lg"
+            className="w-full"
           >
             {status === 'loading' ? 'Redirecionando…' : 'Pagar com Mercado Pago'}
-          </button>
+          </Button>
         </form>
 
-        <p className="mt-8 text-center text-xs text-ink-500">
+        <p className="mt-8 text-center text-xs text-muted-foreground">
           Ao comprar, você concorda com nossos Termos de Uso e Política de Privacidade.
         </p>
       </main>
@@ -173,7 +190,7 @@ function ComprarContent() {
 
 export default function ComprarPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+    <Suspense fallback={<div className="min-h-screen bg-background" />}>
       <ComprarContent />
     </Suspense>
   )

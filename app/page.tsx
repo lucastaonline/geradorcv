@@ -1,54 +1,140 @@
 import Link from 'next/link'
+import {
+  FileText,
+  Sparkles,
+  ArrowRight,
+  Target,
+  Zap,
+  CreditCard,
+  Upload,
+  Mail,
+  Brain,
+  TrendingUp,
+  Clock,
+  Shield,
+  CheckCircle2,
+  Users,
+} from 'lucide-react'
+import { buttonVariants } from './components/ui/button'
+import { cn } from '@/lib/utils'
 import { PACKAGES } from '@/lib/packages'
-import CVForm from './components/CVForm'
+import CVUploadSection from './components/CVUploadSection'
+
+const HOW_IT_WORKS = [
+  {
+    icon: CreditCard,
+    number: '01',
+    title: 'Compre créditos',
+    description:
+      'Escolha o pacote que faz sentido para você. Cada crédito permite melhorar 1 currículo. A primeira otimização é grátis.',
+  },
+  {
+    icon: Upload,
+    number: '02',
+    title: 'Envie seu CV e a vaga',
+    description:
+      'Faça upload do seu currículo em PDF e cole a descrição da vaga. Use o mesmo e-mail da compra para consumir seus créditos.',
+  },
+  {
+    icon: Mail,
+    number: '03',
+    title: 'Receba por e-mail',
+    description:
+      'Em poucos minutos você recebe o currículo otimizado direto no seu e-mail, pronto para enviar.',
+  },
+]
+
+const BENEFITS = [
+  {
+    icon: Brain,
+    title: 'IA Avançada',
+    description:
+      'Algoritmos de última geração que entendem o contexto da vaga e suas experiências.',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Maior Conversão',
+    description:
+      'CVs otimizados têm 3x mais chances de passar pelos sistemas de triagem (ATS).',
+  },
+  {
+    icon: Clock,
+    title: 'Economize Tempo',
+    description:
+      'Pare de reescrever seu CV manualmente. Resultados em menos de 1 minuto.',
+  },
+  {
+    icon: Shield,
+    title: 'Dados Seguros',
+    description:
+      'Seus dados são criptografados e nunca compartilhados com terceiros.',
+  },
+  {
+    icon: CheckCircle2,
+    title: 'Palavras-chave Certas',
+    description:
+      'Identificamos e incluímos as palavras-chave que os recrutadores buscam.',
+  },
+  {
+    icon: Users,
+    title: 'Formatos ATS-Friendly',
+    description:
+      'CVs formatados para passar pelos sistemas automáticos de triagem.',
+  },
+]
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="animate-header fixed top-0 left-0 right-0 z-50 border-b border-ink-800/10 bg-white/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/"
-            className="font-display text-lg font-semibold tracking-tight text-primary-950"
-          >
-            CV <span className="text-primary-600">Tailor</span>
+      <header className="animate-header fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center">
+              <FileText className="w-5 h-5 text-primary-foreground" />
+            </div>
+            <span className="text-xl font-bold text-foreground">CVMatch</span>
           </Link>
-          <nav className="hidden items-center gap-6 md:flex">
-            <a
-              href="#como-funciona"
-              className="text-sm font-medium text-ink-600 transition-colors hover:text-primary-950"
-            >
-              Como funciona
-            </a>
+
+          <nav className="hidden md:flex items-center gap-8">
             <a
               href="#beneficios"
-              className="text-sm font-medium text-ink-600 transition-colors hover:text-primary-950"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               Benefícios
             </a>
             <a
+              href="#como-funciona"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Como Funciona
+            </a>
+            <a
               href="#creditos"
-              className="text-sm font-medium text-ink-600 transition-colors hover:text-primary-950"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               Créditos
             </a>
             <a
-              href="#cta"
-              className="text-sm font-medium text-ink-600 transition-colors hover:text-primary-950"
+              href="#preco"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              Começar
+              Preços
             </a>
           </nav>
+
           <div className="flex items-center gap-3">
             <Link
               href="/comprar"
-              className="btn-secondary hidden text-sm sm:inline-flex"
+              className={cn(buttonVariants({ variant: 'heroOutline', size: 'sm' }), 'hidden sm:inline-flex')}
             >
               Comprar créditos
             </Link>
-            <Link href="#cta" className="btn-primary text-sm">
-              Melhorar meu currículo
+            <Link
+              href="#upload"
+              className={cn(buttonVariants({ variant: 'hero', size: 'sm' }))}
+            >
+              Começar Grátis
             </Link>
           </div>
         </div>
@@ -56,83 +142,97 @@ export default function Home() {
 
       <main>
         {/* Hero */}
-        <section className="relative overflow-hidden pt-24 pb-20 sm:pt-32 sm:pb-28 lg:pt-40 lg:pb-36 gradient-mesh">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl text-center">
-              <p className="hero-item mb-5 inline-flex items-center rounded-full border border-primary-200/80 bg-primary-50/80 px-3.5 py-1.5 text-xs font-medium text-primary-700">
-                Experimente grátis — otimize seu primeiro currículo sem comprar créditos.
-              </p>
-              <h1 className="hero-item font-display text-4xl font-bold tracking-tight text-primary-950 sm:text-5xl lg:text-6xl lg:leading-[1.1]">
-                Seu currículo não está te chamando para entrevistas?
+        <section className="relative min-h-screen flex items-center justify-center pt-16 gradient-hero overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 rounded-full blur-3xl" />
+            <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent/10 rounded-full blur-3xl" />
+          </div>
+
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="hero-item inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium text-primary">
+                  A primeira otimização é grátis
+                </span>
+              </div>
+
+              <h1 className="hero-item text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6">
+                Seu CV <span className="text-gradient">personalizado</span>
+                <br />
+                para cada vaga
               </h1>
-              <p className="hero-item mt-6 text-lg leading-relaxed text-ink-600 sm:text-xl">
-                Transforme seu currículo em um currículo profissional em minutos.
-                Envie seu CV e a descrição da vaga e receba uma versão otimizada por
-                e-mail.
+
+              <p className="hero-item text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
+                Nossa IA analisa a descrição da vaga e adapta seu currículo para
+                destacar exatamente o que os recrutadores procuram. Aumente suas
+                chances em até 3x.
               </p>
-              <div className="hero-item mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Link href="#cta" className="btn-primary w-full sm:w-auto">
-                  Melhorar meu currículo agora
+
+              <div className="hero-item flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                <Link
+                  href="#upload"
+                  className={cn(buttonVariants({ variant: 'hero', size: 'xl' }))}
+                >
+                  Customizar Meu CV
+                  <ArrowRight className="w-5 h-5" />
                 </Link>
                 <Link
-                  href="/comprar"
-                  className="btn-secondary w-full sm:w-auto"
+                  href="#como-funciona"
+                  className={cn(buttonVariants({ variant: 'heroOutline', size: 'xl' }))}
                 >
-                  Comprar créditos
+                  Como funciona?
                 </Link>
+              </div>
+
+              <div className="hero-item grid grid-cols-2 gap-8 max-w-md mx-auto">
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-1 text-2xl md:text-3xl font-bold text-foreground mb-1">
+                    <Target className="w-5 h-5 text-primary" />
+                    95%
+                  </div>
+                  <p className="text-sm text-muted-foreground">Taxa de Match</p>
+                </div>
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-1 text-2xl md:text-3xl font-bold text-foreground mb-1">
+                    <Zap className="w-5 h-5 text-accent" />
+                    Algumas horas
+                  </div>
+                  <p className="text-sm text-muted-foreground">Tempo de entrega</p>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Como funciona */}
-        <section
-          id="como-funciona"
-          className="border-t border-ink-800/10 bg-[#fafafa] py-24 sm:py-32"
-        >
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-2xl text-center">
-              <h2 className="font-display text-2xl font-semibold tracking-tight text-primary-950 sm:text-3xl">
-                Como funciona
+        {/* Benefícios */}
+        <section id="beneficios" className="py-24 bg-card">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Por que escolher o <span className="text-gradient">CVMatch</span>?
               </h2>
-              <p className="mt-3 text-base text-ink-600">
-                Três passos simples para um CV que se encaixa na vaga.
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Tecnologia de ponta para maximizar suas chances de conseguir a
+                vaga dos sonhos
               </p>
             </div>
-            <div className="mt-16 grid gap-6 sm:grid-cols-3">
-              {[
-                {
-                  step: '1',
-                  title: 'Compre um pacote de créditos',
-                  description:
-                    'Escolha o pacote que faz sentido para você. Cada crédito permite melhorar 1 currículo.',
-                },
-                {
-                  step: '2',
-                  title: 'Use 1 crédito por currículo',
-                  description:
-                    'Envie seu CV e a descrição da vaga. Usamos IA para clareza, estrutura e linguagem.',
-                },
-                {
-                  step: '3',
-                  title: 'Receba por e-mail',
-                  description:
-                    'Em poucos minutos você recebe o currículo otimizado direto no seu e-mail.',
-                },
-              ].map((item, i) => (
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {BENEFITS.map((benefit, index) => (
                 <div
-                  key={item.step}
-                  className="section-item group rounded-xl border border-ink-800/10 bg-white p-6 card-hover"
-                  style={{ animationDelay: `${i * 0.08}s` }}
+                  key={benefit.title}
+                  className="group p-6 rounded-2xl bg-background border border-border/50 hover:border-primary/30 hover:shadow-soft transition-all duration-300 section-item"
+                  style={{ animationDelay: `${index * 0.05}s` }}
                 >
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary-100 text-sm font-semibold text-primary-700">
-                    {item.step}
-                  </span>
-                  <h3 className="mt-5 font-display text-lg font-semibold text-primary-950">
-                    {item.title}
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                    <benefit.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2 text-foreground">
+                    {benefit.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-600">
-                    {item.description}
+                  <p className="text-muted-foreground text-sm">
+                    {benefit.description}
                   </p>
                 </div>
               ))}
@@ -140,50 +240,42 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Benefícios */}
+        {/* Como funciona */}
         <section
-          id="beneficios"
-          className="border-t border-ink-800/10 bg-white py-24 sm:py-32"
+          id="como-funciona"
+          className="py-24 bg-background"
         >
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-2xl text-center">
-              <h2 className="font-display text-2xl font-semibold tracking-tight text-primary-950 sm:text-3xl">
-                O que você ganha
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Como <span className="text-gradient">funciona</span>
               </h2>
-              <p className="mt-3 text-base text-ink-600">
-                Currículo revisado com foco em clareza e profissionalismo.
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Compre créditos, envie seu CV e a descrição da vaga, e receba o
+                currículo otimizado por e-mail. A primeira otimização é grátis.
               </p>
             </div>
-            <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {[
-                {
-                  title: 'Linguagem profissional e objetiva',
-                  description: 'Texto claro e adequado para processos seletivos.',
-                },
-                {
-                  title: 'Melhor organização das informações',
-                  description: 'Estrutura que destaca suas experiências e habilidades.',
-                },
-                {
-                  title: 'Adequado para ATS e recrutadores',
-                  description: 'Otimizado para sistemas de triagem e leitura humana.',
-                },
-                {
-                  title: 'Pronto para enviar',
-                  description: 'Receba o arquivo por e-mail e use quando quiser.',
-                },
-              ].map((item, i) => (
-                <div
-                  key={item.title}
-                  className="section-item rounded-xl border border-ink-800/10 bg-[#fafafa] p-6 card-hover"
-                  style={{ animationDelay: `${i * 0.08}s` }}
-                >
-                  <h3 className="font-display text-lg font-semibold text-primary-950">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-600">
-                    {item.description}
-                  </p>
+
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {HOW_IT_WORKS.map((step, index) => (
+                <div key={step.number} className="relative">
+                  <div className="bg-card rounded-2xl p-8 shadow-soft h-full border border-border/50 hover:border-primary/30 transition-colors section-item">
+                    <div className="w-14 h-14 rounded-xl gradient-primary flex items-center justify-center mb-6">
+                      <step.icon className="w-7 h-7 text-primary-foreground" />
+                    </div>
+                    <span className="text-5xl font-bold text-muted-foreground/30 absolute top-6 right-8">
+                      {step.number}
+                    </span>
+                    <h3 className="text-xl font-semibold mb-3 text-foreground">
+                      {step.title}
+                    </h3>
+                    <p className="text-muted-foreground">{step.description}</p>
+                  </div>
+                  {index < HOW_IT_WORKS.length - 1 && (
+                    <div className="hidden md:flex absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                      <ArrowRight className="w-8 h-8 text-primary/30" />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -193,69 +285,77 @@ export default function Home() {
         {/* Sistema de créditos */}
         <section
           id="creditos"
-          className="border-t border-ink-800/10 bg-[#fafafa] py-24 sm:py-32"
+          className="py-24 bg-card"
         >
-          <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-            <h2 className="font-display text-2xl font-semibold tracking-tight text-primary-950 sm:text-3xl">
-              Sistema de créditos
-            </h2>
-            <p className="mt-4 text-base text-ink-600">
-              Você compra um pacote com créditos. Cada crédito permite melhorar 1
-              currículo. Use quando quiser, sem expiração.
-            </p>
-            <ul className="mt-6 space-y-2 text-left text-sm text-ink-600">
-              <li className="flex items-center gap-2">
-                <span className="text-cta-500">•</span>
-                Pacotes com 1 a 50 créditos
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-cta-500">•</span>
-                1 crédito = 1 currículo melhorado
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-cta-500">•</span>
-                Créditos sem data de validade
-              </li>
-            </ul>
-            <Link
-              href="/comprar"
-              className="btn-primary mt-8 inline-flex"
-            >
-              Ver pacotes e preços
-            </Link>
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Sistema de <span className="text-gradient">créditos</span>
+              </h2>
+              <p className="text-muted-foreground text-lg mb-6">
+                Você compra um pacote com créditos. Cada crédito permite melhorar
+                1 currículo. Use quando quiser, sem expiração. A primeira otimização é grátis.
+              </p>
+              <ul className="space-y-2 text-left text-sm text-muted-foreground max-w-sm mx-auto mb-8">
+                <li className="flex items-center gap-2">
+                  <span className="text-accent">•</span>
+                  Pacotes com 1 a 50 créditos
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-accent">•</span>
+                  1 crédito = 1 currículo melhorado
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-accent">•</span>
+                  Créditos sem data de validade
+                </li>
+              </ul>
+              <Link
+                href="#preco"
+                className={cn(buttonVariants({ variant: 'hero', size: 'lg' }))}
+              >
+                Ver pacotes e preços
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         </section>
 
-        {/* Preço */}
+        {/* Preços */}
         <section
           id="preco"
-          className="border-t border-ink-800/10 bg-white py-24 sm:py-32"
+          className="py-24 bg-background"
         >
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-2xl text-center">
-              <h2 className="font-display text-2xl font-semibold tracking-tight text-primary-950 sm:text-3xl">
-                Preços
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Escolha seu <span className="text-gradient">pacote</span>
               </h2>
-              <p className="mt-3 text-base text-ink-600">
-                Escolha o pacote que faz sentido para você.
+              <p className="text-muted-foreground max-w-xl mx-auto">
+                Quanto mais créditos, melhor o custo por currículo.
               </p>
             </div>
-            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
               {PACKAGES.map((pkg) => (
                 <div
                   key={pkg.credits}
-                  className="rounded-xl border border-ink-800/10 bg-[#fafafa] p-6 text-center card-hover"
+                  className="rounded-2xl border border-border/50 bg-card p-6 text-center shadow-soft hover:border-primary/30 transition-all duration-300"
                 >
-                  <p className="font-display text-2xl font-semibold text-primary-950">
+                  <p className="text-xl font-semibold text-foreground">
                     {pkg.credits} {pkg.credits === 1 ? 'crédito' : 'créditos'}
                   </p>
-                  <p className="mt-2 text-3xl font-bold text-primary-600">
+                  <p className="mt-2 text-3xl font-bold text-primary">
                     R$ {pkg.price}
                   </p>
-                  <p className="mt-1 text-sm text-ink-600">{pkg.label}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {pkg.label}
+                  </p>
                   <Link
                     href={`/comprar?pacote=${pkg.credits}`}
-                    className="btn-primary mt-4 inline-block w-full"
+                    className={cn(
+                      buttonVariants({ variant: 'hero', size: 'default' }),
+                      'mt-4 w-full inline-flex justify-center'
+                    )}
                   >
                     Comprar
                   </Link>
@@ -265,105 +365,103 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Prova / confiança */}
-        <section className="border-t border-ink-800/10 bg-[#fafafa] py-16 sm:py-20">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-wrap justify-center gap-8 text-center text-sm text-ink-600">
-              <span className="flex items-center gap-2">
-                <span className="font-medium text-primary-950">Pagamento seguro</span>
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="font-medium text-primary-950">Entrega por e-mail</span>
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="font-medium text-primary-950">Processo rápido</span>
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="font-medium text-primary-950">Suporte em caso de erro</span>
-              </span>
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section id="faq" className="border-t border-ink-800/10 bg-white py-24 sm:py-32">
-          <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-            <h2 className="font-display text-2xl font-semibold tracking-tight text-primary-950 sm:text-3xl text-center">
-              Perguntas frequentes
-            </h2>
-            <dl className="mt-12 space-y-8">
-              {[
-                {
-                  q: 'Em quanto tempo recebo meu currículo?',
-                  a: 'Geralmente em poucos minutos. Você recebe o arquivo por e-mail.',
-                },
-                {
-                  q: 'Posso usar os créditos depois?',
-                  a: 'Sim. Os créditos não expiram. Use quando quiser.',
-                },
-                {
-                  q: 'Quais formatos são aceitos?',
-                  a: 'Envie seu currículo em PDF. Você receberá o resultado também em PDF.',
-                },
-                {
-                  q: 'Posso melhorar mais de um currículo?',
-                  a: 'Sim. Cada envio consome 1 crédito. Compre um pacote com vários créditos para usar em várias vagas.',
-                },
-              ].map((faq) => (
-                <div key={faq.q}>
-                  <dt className="font-display font-semibold text-primary-950">
-                    {faq.q}
-                  </dt>
-                  <dd className="mt-2 text-sm text-ink-600">{faq.a}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </section>
+        {/* Upload */}
+        <CVUploadSection />
 
         {/* CTA final */}
         <section
           id="cta"
-          className="border-t border-ink-800/10 bg-primary-950 py-24 sm:py-32"
+          className="py-24 bg-card relative overflow-hidden"
         >
-          <div className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
-            <h2 className="font-display text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-              Pronto para um CV que se destaca?
-            </h2>
-            <p className="mt-3 text-base text-primary-200">
-              Envie seu currículo e a descrição da vaga. Use o mesmo e-mail que você usou na compra para consumir seus créditos.
-            </p>
-            <CVForm />
-            <p className="mt-6 text-xs text-primary-400">
-              Ao continuar, você concorda com nossos Termos de Uso e Política de
-              Privacidade.
-            </p>
+          <div className="absolute inset-0">
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+          </div>
+
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-3xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
+                <Sparkles className="w-4 h-4 text-accent" />
+                <span className="text-sm font-medium text-accent">
+                  Comece grátis hoje
+                </span>
+              </div>
+
+              <h2 className="text-3xl md:text-5xl font-bold mb-6">
+                Pronto para conseguir mais entrevistas?
+              </h2>
+
+              <p className="text-lg text-muted-foreground mb-10 max-w-xl mx-auto">
+                Junte-se a milhares de profissionais que já estão usando o
+                CVMatch para destacar suas candidaturas.
+              </p>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+                <Link
+                  href="#upload"
+                  className={cn(buttonVariants({ variant: 'accent', size: 'xl' }))}
+                >
+                  Começar Agora - Grátis
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="/comprar"
+                  className={cn(buttonVariants({ variant: 'heroOutline', size: 'xl' }))}
+                >
+                  Comprar créditos
+                </Link>
+              </div>
+
+              <p className="text-sm text-muted-foreground">
+                Pagamento via Mercado Pago. Precisa de mais créditos?{' '}
+                <Link href="/comprar" className="text-primary font-medium hover:underline">
+                  Ver pacotes
+                </Link>
+              </p>
+            </div>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-ink-800/10 bg-white py-10">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <span className="font-display text-base font-semibold text-primary-950">
-              CV <span className="text-primary-600">Tailor</span>
-            </span>
-            <div className="flex gap-6 text-sm text-ink-600">
-              <a href="#" className="transition-colors hover:text-primary-950">
-                Termos
+      <footer className="py-12 bg-background border-t border-border/50">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <Link
+              href="/"
+              className="flex items-center gap-2"
+            >
+              <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center">
+                <FileText className="w-4 h-4 text-primary-foreground" />
+              </div>
+              <span className="text-lg font-bold text-foreground">CVMatch</span>
+            </Link>
+
+            <nav className="flex items-center gap-6">
+              <a
+                href="#"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Termos de Uso
               </a>
-              <a href="#" className="transition-colors hover:text-primary-950">
+              <a
+                href="#"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
                 Privacidade
               </a>
-              <a href="#" className="transition-colors hover:text-primary-950">
+              <a
+                href="#"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
                 Contato
               </a>
-            </div>
+            </nav>
+
+            <p className="text-sm text-muted-foreground">
+              © {new Date().getFullYear()} CVMatch. Todos os direitos reservados.
+            </p>
           </div>
-          <p className="mt-6 text-center text-xs text-ink-400">
-            © {new Date().getFullYear()} CV Tailor. Todos os direitos reservados.
-          </p>
         </div>
       </footer>
     </div>

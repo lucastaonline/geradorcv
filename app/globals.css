@@ -2,38 +2,98 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --primary: 30 58 138;
-  --primary-950: 15 23 42;
-  --cta: 5 150 105;
-  --ink: 15 23 42;
-  --ink-muted: 100 116 139;
-  --font-inter: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-plus-jakarta: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 217 91% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 160 84% 39%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 217 91% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 50%) 0%, hsl(240 84% 60%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(160 84% 39%) 0%, hsl(180 70% 45%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(210 20% 98%) 0%, hsl(217 30% 95%) 100%);
+    --shadow-soft: 0 4px 20px -4px hsl(217 91% 50% / 0.15);
+    --shadow-glow: 0 0 40px -10px hsl(217 91% 50% / 0.3);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  @apply bg-white text-primary-950 antialiased;
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
 
-/* Linear/Notion-style: fundo limpo, sem gradiente pesado */
-.gradient-mesh {
-  background:
-    radial-gradient(ellipse 70% 50% at 50% -10%, rgba(30, 58, 138, 0.06), transparent),
-    radial-gradient(ellipse 50% 40% at 80% 20%, rgba(5, 150, 105, 0.04), transparent);
-}
-
-/* Animações sutis — substituem framer-motion */
+/* Animações */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -80,13 +140,5 @@ body {
 }
 
 .card-hover {
-  @apply transition-all duration-300 hover:shadow-lg hover:shadow-primary-950/5 hover:-translate-y-0.5;
-}
-
-.btn-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded-lg bg-cta-500 px-5 py-2.5 text-sm font-medium text-white transition-all duration-200 hover:bg-cta-600 active:bg-cta-700;
-}
-
-.btn-secondary {
-  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-ink-800/30 bg-white px-5 py-2.5 text-sm font-medium text-primary-950 transition-all duration-200 hover:bg-primary-50 hover:border-primary-200 active:bg-primary-100;
+  @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;
 }
