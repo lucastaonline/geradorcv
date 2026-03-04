@@ -1,5 +1,11 @@
 [
   {
+    "credits": 1000,
+    "price": 0.01,
+    "title": "TESTE",
+    "label": "TESTE"
+  },
+  {
     "credits": 1,
     "price": 9,
     "title": "1 crédito - CV Tailor",
