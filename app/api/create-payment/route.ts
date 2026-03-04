@@ -50,7 +50,9 @@ export async function POST(request: Request) {
 
     const successUrl = `${baseUrl}/comprar/sucesso`
     const failureUrl = `${baseUrl}/comprar?erro=1`
-    const pendingUrl = `${baseUrl}/comprar?pendente=1`
+    const pendingUrl = `${baseUrl}/comprar/sucesso`
+
+    const notificationUrl = `${baseUrl}/api/webhook-payment`
 
     const preference: Record<string, unknown> = {
       items: [
@@ -70,6 +72,7 @@ export async function POST(request: Request) {
         failure: failureUrl,
         pending: pendingUrl,
       },
+      notification_url: notificationUrl,
       external_reference: emailTrimmed,
     }
 
