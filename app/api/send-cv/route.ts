@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
+import * as Sentry from '@sentry/nextjs'
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 MB
 const DESCRIPTION_MIN = 10
@@ -67,6 +68,16 @@ export async function POST(request: Request) {
       .trim()
 
     if (!recipientEmail || !smtpHost || !smtpPort || !smtpUser || !smtpPass) {
+      const configError = new Error('Send CV: variáveis de ambiente SMTP ausentes')
+      Sentry.captureException(configError, {
+        extra: {
+          hasRecipient: !!recipientEmail,
+          hasSmtpHost: !!smtpHost,
+          hasSmtpPort: !!smtpPort,
+          hasSmtpUser: !!smtpUser,
+          hasSmtpPass: !!smtpPass,
+        },
+      })
       console.error('Send CV: missing env RECIPIENT_EMAIL or SMTP_*')
       return NextResponse.json(
         { error: 'Configuração de e-mail indisponível. Tente mais tarde.' },
@@ -116,6 +127,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true })
   } catch (err) {
+    Sentry.captureException(err, {
+      tags: { route: 'send-cv' },
+      extra: { userEmail: 'redacted' },
+    })
     console.error('Send CV error:', err)
     return NextResponse.json(
       { error: 'Não foi possível enviar. Tente novamente mais tarde.' },

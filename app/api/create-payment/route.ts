@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { getPackageByCredits } from '@/lib/packages'
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -33,6 +34,10 @@ export async function POST(request: Request) {
 
     const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN?.trim()
     if (!accessToken) {
+      const configError = new Error('Create payment: MERCADOPAGO_ACCESS_TOKEN ausente')
+      Sentry.captureException(configError, {
+        tags: { route: 'create-payment' },
+      })
       console.error('Create payment: missing MERCADOPAGO_ACCESS_TOKEN')
       return NextResponse.json(
         { error: 'Pagamento não configurado. Tente mais tarde.' },
@@ -82,8 +87,16 @@ export async function POST(request: Request) {
     })
 
     if (!res.ok) {
-      const err = await res.text()
-      console.error('Mercado Pago preference error:', res.status, err)
+      const errText = await res.text()
+      Sentry.captureException(new Error('Mercado Pago: erro ao criar preferência'), {
+        tags: { route: 'create-payment' },
+        extra: {
+          statusCode: res.status,
+          response: errText,
+          credits: pkg.credits,
+        },
+      })
+      console.error('Mercado Pago preference error:', res.status, errText)
       return NextResponse.json(
         { error: 'Não foi possível iniciar o pagamento. Tente novamente.' },
         { status: 500 }
@@ -93,6 +106,10 @@ export async function POST(request: Request) {
     const data = (await res.json()) as { init_point?: string; sandbox_init_point?: string }
     const initPoint = data.init_point || data.sandbox_init_point
     if (!initPoint) {
+      Sentry.captureException(new Error('Mercado Pago: init_point ausente na resposta'), {
+        tags: { route: 'create-payment' },
+        extra: { credits: pkg.credits },
+      })
       console.error('Mercado Pago: no init_point in response', data)
       return NextResponse.json(
         { error: 'Resposta inválida do gateway. Tente novamente.' },
@@ -102,6 +119,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ init_point: initPoint })
   } catch (err) {
+    Sentry.captureException(err, {
+      tags: { route: 'create-payment' },
+    })
     console.error('Create payment error:', err)
     return NextResponse.json(
       { error: 'Não foi possível iniciar o pagamento. Tente novamente.' },
