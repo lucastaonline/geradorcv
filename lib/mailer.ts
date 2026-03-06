@@ -54,7 +54,7 @@ export async function sendPaymentNotificationEmail({
     to: recipientEmail,
     subject: `Nova compra de créditos — ${buyerEmail} — ${credits} crédito${credits !== 1 ? 's' : ''}`,
     text: [
-      `Nova compra aprovada no CVMatch`,
+      `Nova compra aprovada no AdaptCV`,
       ``,
       `E-mail do comprador: ${buyerEmail}`,
       `Pacote: ${credits} crédito${credits !== 1 ? 's' : ''}`,
@@ -63,7 +63,7 @@ export async function sendPaymentNotificationEmail({
       `Data: ${date}`,
     ].join('\n'),
     html: `
-      <p><strong>Nova compra aprovada no CVMatch</strong></p>
+      <p><strong>Nova compra aprovada no AdaptCV</strong></p>
       <table cellpadding="6" cellspacing="0">
         <tr><td><strong>E-mail do comprador:</strong></td><td>${buyerEmail}</td></tr>
         <tr><td><strong>Pacote:</strong></td><td>${credits} crédito${credits !== 1 ? 's' : ''}</td></tr>

@@ -1,32 +1,26 @@
 [
   {
-    "credits": 1000,
-    "price": 0.01,
-    "title": "TESTE",
-    "label": "TESTE"
-  },
-  {
     "credits": 1,
     "price": 9,
-    "title": "1 crédito - CV Tailor",
+    "title": "1 crédito - AdaptCV",
     "label": "1 currículo"
   },
   {
     "credits": 10,
     "price": 19,
-    "title": "10 créditos - CV Tailor",
+    "title": "10 créditos - AdaptCV",
     "label": "10 currículos"
   },
   {
     "credits": 30,
     "price": 39,
-    "title": "30 créditos - CV Tailor",
+    "title": "30 créditos - AdaptCV",
     "label": "30 currículos"
   },
   {
     "credits": 50,
     "price": 59,
-    "title": "50 créditos - CV Tailor",
+    "title": "50 créditos - AdaptCV",
     "label": "50 currículos"
   }
 ]
