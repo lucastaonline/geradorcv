@@ -93,7 +93,7 @@ export default function Home() {
             <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center">
               <FileText className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold text-foreground">AdaptCV</span>
+            <span className="text-xl font-bold text-foreground">CVAdapt</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
@@ -210,7 +210,7 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Por que escolher o <span className="text-gradient">AdaptCV</span>?
+                Por que escolher o <span className="text-gradient">CVAdapt</span>?
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 Tecnologia de ponta para maximizar suas chances de conseguir a
@@ -393,7 +393,7 @@ export default function Home() {
 
               <p className="text-lg text-muted-foreground mb-10 max-w-xl mx-auto">
                 Junte-se a milhares de profissionais que já estão usando o
-                AdaptCV para destacar suas candidaturas.
+                CVAdapt para destacar suas candidaturas.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
@@ -434,7 +434,7 @@ export default function Home() {
               <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center">
                 <FileText className="w-4 h-4 text-primary-foreground" />
               </div>
-              <span className="text-lg font-bold text-foreground">AdaptCV</span>
+              <span className="text-lg font-bold text-foreground">CVAdapt</span>
             </Link>
 
             <nav className="flex items-center gap-6">
@@ -459,7 +459,7 @@ export default function Home() {
             </nav>
 
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} AdaptCV. Todos os direitos reservados.
+              © {new Date().getFullYear()} CVAdapt. Todos os direitos reservados.
             </p>
           </div>
         </div>

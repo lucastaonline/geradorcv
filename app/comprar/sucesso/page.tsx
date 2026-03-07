@@ -27,7 +27,7 @@ function SucessoContent() {
             <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center">
               <FileText className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold text-foreground">AdaptCV</span>
+            <span className="text-xl font-bold text-foreground">CVAdapt</span>
           </Link>
           <Link
             href="/"

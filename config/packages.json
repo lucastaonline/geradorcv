@@ -2,25 +2,25 @@
   {
     "credits": 1,
     "price": 9,
-    "title": "1 crédito - AdaptCV",
+    "title": "1 crédito - CVAdapt",
     "label": "1 currículo"
   },
   {
     "credits": 10,
     "price": 19,
-    "title": "10 créditos - AdaptCV",
+    "title": "10 créditos - CVAdapt",
     "label": "10 currículos"
   },
   {
     "credits": 30,
     "price": 39,
-    "title": "30 créditos - AdaptCV",
+    "title": "30 créditos - CVAdapt",
     "label": "30 currículos"
   },
   {
     "credits": 50,
     "price": 59,
-    "title": "50 créditos - AdaptCV",
+    "title": "50 créditos - CVAdapt",
     "label": "50 currículos"
   }
 ]

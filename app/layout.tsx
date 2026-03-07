@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'AdaptCV — Seu CV personalizado para cada vaga',
+  title: 'CVAdapt — Seu CV personalizado para cada vaga',
   description:
     'Envie seu currículo e a descrição da vaga. Receba um CV customizado que destaca suas qualificações para aquela oportunidade específica.',
   openGraph: {
-    title: 'AdaptCV — Seu CV personalizado para cada vaga',
+    title: 'CVAdapt — Seu CV personalizado para cada vaga',
     description:
       'Envie seu currículo e a descrição da vaga. Receba um CV customizado que destaca suas qualificações para aquela oportunidade específica.',
   },
