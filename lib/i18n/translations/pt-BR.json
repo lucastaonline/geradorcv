@@ -39,7 +39,7 @@
       "matchRate": "Taxa de Match",
       "matchRateValue": "95%",
       "deliveryTime": "Tempo de entrega",
-      "deliveryTimeValue": "Algumas horas"
+      "deliveryTimeValue": "Em minutos"
     },
     "benefits": {
       "title": "Por que escolher o",
@@ -50,7 +50,7 @@
       "conversion": "Maior Conversão",
       "conversionDesc": "CVs otimizados têm 3x mais chances de passar pelos sistemas de triagem (ATS).",
       "time": "Economize Tempo",
-      "timeDesc": "Pare de reescrever seu CV manualmente. Resultados em menos de 1 minuto.",
+      "timeDesc": "Pare de reescrever seu CV manualmente. Resultados em minutos.",
       "security": "Dados Seguros",
       "securityDesc": "Seus dados são criptografados e nunca compartilhados com terceiros.",
       "keywords": "Palavras-chave Certas",

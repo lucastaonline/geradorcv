@@ -39,7 +39,7 @@
       "matchRate": "Match rate",
       "matchRateValue": "95%",
       "deliveryTime": "Delivery time",
-      "deliveryTimeValue": "A few hours"
+      "deliveryTimeValue": "In minutes"
     },
     "benefits": {
       "title": "Why choose",
@@ -50,7 +50,7 @@
       "conversion": "Higher conversion",
       "conversionDesc": "Optimized CVs are 3x more likely to pass applicant tracking systems (ATS).",
       "time": "Save time",
-      "timeDesc": "Stop rewriting your CV manually. Results in under 1 minute.",
+      "timeDesc": "Stop rewriting your CV manually. Results in minutes.",
       "security": "Secure data",
       "securityDesc": "Your data is encrypted and never shared with third parties.",
       "keywords": "Right keywords",

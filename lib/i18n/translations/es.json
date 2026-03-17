@@ -39,7 +39,7 @@
       "matchRate": "Tasa de coincidencia",
       "matchRateValue": "95%",
       "deliveryTime": "Tiempo de entrega",
-      "deliveryTimeValue": "Unas horas"
+      "deliveryTimeValue": "En minutos"
     },
     "benefits": {
       "title": "¿Por qué elegir",
@@ -50,7 +50,7 @@
       "conversion": "Mayor conversión",
       "conversionDesc": "Los CV optimizados tienen 3 veces más posibilidades de pasar los sistemas de cribado (ATS).",
       "time": "Ahorra tiempo",
-      "timeDesc": "Deja de reescribir tu CV a mano. Resultados en menos de 1 minuto.",
+      "timeDesc": "Deja de reescribir tu CV a mano. Resultados en minutos.",
       "security": "Datos seguros",
       "securityDesc": "Tus datos están cifrados y no se comparten con terceros.",
       "keywords": "Palabras clave correctas",
