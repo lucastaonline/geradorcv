@@ -46,7 +46,8 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="animate-header fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+        <div className="container mx-auto px-4 h-16">
+          <div className="max-w-6xl mx-auto h-full flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center">
               <FileText className="w-5 h-5 text-primary-foreground" />
@@ -95,6 +96,7 @@ export default function Home() {
             >
               {t('home.nav.startFree')}
             </Link>
+          </div>
           </div>
         </div>
       </header>
@@ -158,16 +160,17 @@ export default function Home() {
         {/* Benefícios */}
         <section id="beneficios" className="py-24 bg-card">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                {t('home.benefits.title')} <span className="text-gradient">{t('common.brand')}</span>{t('home.benefits.titleSuffix')}
-              </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                {t('home.benefits.subtitle')}
-              </p>
-            </div>
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  {t('home.benefits.title')} <span className="text-gradient">{t('common.brand')}</span>{t('home.benefits.titleSuffix')}
+                </h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  {t('home.benefits.subtitle')}
+                </p>
+              </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {BENEFITS_KEYS.map((benefit, index) => (
                 <div
                   key={benefit.titleKey}
@@ -185,6 +188,7 @@ export default function Home() {
                   </p>
                 </div>
               ))}
+              </div>
             </div>
           </div>
         </section>
@@ -195,16 +199,17 @@ export default function Home() {
           className="py-24 bg-background"
         >
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                {t('home.howItWorks.title')} <span className="text-gradient">{t('home.howItWorks.titleHighlight')}</span>
-              </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                {t('home.howItWorks.subtitle')}
-              </p>
-            </div>
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  {t('home.howItWorks.title')} <span className="text-gradient">{t('home.howItWorks.titleHighlight')}</span>
+                </h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  {t('home.howItWorks.subtitle')}
+                </p>
+              </div>
 
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {HOW_IT_WORKS_KEYS.map((step, index) => (
                 <div key={step.number} className="relative">
                   <div className="bg-card rounded-2xl p-8 shadow-soft h-full border border-border/50 hover:border-primary/30 transition-colors section-item">
@@ -226,6 +231,7 @@ export default function Home() {
                   )}
                 </div>
               ))}
+              </div>
             </div>
           </div>
         </section>
@@ -236,28 +242,29 @@ export default function Home() {
           className="py-24 bg-card"
         >
           <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 {t('home.creditsSection.title')} <span className="text-gradient">{t('home.creditsSection.titleHighlight')}</span>
               </h2>
-              <p className="text-muted-foreground text-lg mb-6">
+              <p className="text-muted-foreground text-lg mb-8">
                 {t('home.creditsSection.intro')}{' '}
                 <span className="font-semibold text-primary">{t('home.creditsSection.introHighlight')}</span>
               </p>
-              <ul className="space-y-2 text-left text-sm text-muted-foreground max-w-sm mx-auto mb-8">
-                <li className="flex items-center gap-2">
-                  <span className="text-accent">•</span>
-                  {t('home.creditsSection.bullet1')}
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-accent">•</span>
-                  {t('home.creditsSection.bullet2')}
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-accent">•</span>
-                  {t('home.creditsSection.bullet3')}
-                </li>
-              </ul>
+              <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-10">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                  <span>{t('home.creditsSection.bullet1')}</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                  <span>{t('home.creditsSection.bullet2')}</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                  <span>{t('home.creditsSection.bullet3')}</span>
+                </div>
+              </div>
               <Link
                 href="#preco"
                 className={cn(buttonVariants({ variant: 'hero', size: 'lg' }))}
@@ -265,6 +272,7 @@ export default function Home() {
                 {t('home.creditsSection.cta')}
                 <ArrowRight className="w-4 h-4" />
               </Link>
+            </div>
             </div>
           </div>
         </section>
@@ -275,6 +283,7 @@ export default function Home() {
           className="py-24 bg-background"
         >
           <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 {t('home.pricing.title')} <span className="text-gradient">{t('home.pricing.titleHighlight')}</span>
@@ -313,6 +322,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
+            </div>
           </div>
         </section>
 
@@ -330,14 +340,8 @@ export default function Home() {
           </div>
 
           <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-6xl mx-auto">
             <div className="max-w-3xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
-                <Sparkles className="w-4 h-4 text-accent" />
-                <span className="text-sm font-medium text-accent">
-                  {t('home.cta.badge')}
-                </span>
-              </div>
-
               <h2 className="text-3xl md:text-5xl font-bold mb-6">
                 {t('home.cta.title')}
               </h2>
@@ -369,6 +373,7 @@ export default function Home() {
                 </Link>
               </p>
             </div>
+            </div>
           </div>
         </section>
       </main>
@@ -376,7 +381,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-12 bg-background border-t border-border/50">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
             <Link
               href="/"
               className="flex items-center gap-2"

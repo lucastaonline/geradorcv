@@ -163,6 +163,7 @@ export default function CVUploadSection() {
   return (
     <section id="upload" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
+        <div className="max-w-6xl mx-auto">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -324,6 +325,7 @@ export default function CVUploadSection() {
               {t('home.upload.dataSafe')}
             </p>
           </form>
+        </div>
         </div>
       </div>
     </section>
