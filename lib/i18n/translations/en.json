@@ -72,7 +72,8 @@
     "creditsSection": {
       "title": "Credit",
       "titleHighlight": "system",
-      "intro": "You buy a package with credits. Each credit lets you improve 1 resume. Use them whenever you want, no expiration. First optimization is free.",
+      "intro": "You buy a package with credits. Each credit lets you improve 1 resume. Use them whenever you want, no expiration.",
+      "introHighlight": "First optimization is free.",
       "bullet1": "Packages from 1 to 50 credits",
       "bullet2": "1 credit = 1 improved resume",
       "bullet3": "Credits never expire",

@@ -72,7 +72,8 @@
     "creditsSection": {
       "title": "Sistema de",
       "titleHighlight": "créditos",
-      "intro": "Compras un paquete con créditos. Cada crédito permite mejorar 1 currículo. Úsalos cuando quieras, sin vencimiento. La primera optimización es gratis.",
+      "intro": "Compras un paquete con créditos. Cada crédito permite mejorar 1 currículo. Úsalos cuando quieras, sin vencimiento.",
+      "introHighlight": "La primera optimización es gratis.",
       "bullet1": "Paquetes de 1 a 50 créditos",
       "bullet2": "1 crédito = 1 currículo mejorado",
       "bullet3": "Créditos sin fecha de vencimiento",

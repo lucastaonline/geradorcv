@@ -248,7 +248,8 @@ export default function Home() {
                 {t('home.creditsSection.title')} <span className="text-gradient">{t('home.creditsSection.titleHighlight')}</span>
               </h2>
               <p className="text-muted-foreground text-lg mb-6">
-                {t('home.creditsSection.intro')}
+                {t('home.creditsSection.intro')}{' '}
+                <span className="font-semibold text-primary">{t('home.creditsSection.introHighlight')}</span>
               </p>
               <ul className="space-y-2 text-left text-sm text-muted-foreground max-w-sm mx-auto mb-8">
                 <li className="flex items-center gap-2">
