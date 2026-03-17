@@ -109,13 +109,6 @@ export default function Home() {
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="hero-item inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
-                <Sparkles className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-primary">
-                  {t('home.hero.badge')}
-                </span>
-              </div>
-
               <h1 className="hero-item text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6">
                 {t('home.hero.title')} <span className="text-gradient">{t('home.hero.titleHighlight')}</span>
                 <br />
