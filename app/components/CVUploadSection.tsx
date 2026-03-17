@@ -14,6 +14,8 @@ import { cn } from '@/lib/utils'
 import { useTranslations } from '@/lib/i18n'
 
 const PDF_MIME = 'application/pdf'
+const DOCX_MIME = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+const ALLOWED_MIME_TYPES = [PDF_MIME, DOCX_MIME]
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 MB
 const DESCRIPTION_MIN = 10
 const DESCRIPTION_MAX = 10000
@@ -48,10 +50,10 @@ export default function CVUploadSection() {
   const t = useTranslations()
 
   const validateFile = (f: File): boolean => {
-    if (f.type !== PDF_MIME) {
+    if (!ALLOWED_MIME_TYPES.includes(f.type)) {
       setSubmitMessage({
         type: 'error',
-        text: t('home.uploadErrors.pdfOnly'),
+        text: t('home.uploadErrors.pdfOrDocxOnly'),
       })
       return false
     }
@@ -197,11 +199,11 @@ export default function CVUploadSection() {
                     {t('home.upload.orClick')}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    {t('home.upload.pdfMax')}
+                    {t('home.upload.fileFormats')}
                   </p>
                   <input
                     type="file"
-                    accept=".pdf,application/pdf"
+                    accept=".pdf,application/pdf,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                     onChange={handleFileInput}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                   />

@@ -90,6 +90,7 @@
       "dragCv": "Drag your CV here",
       "orClick": "or click to select a file",
       "pdfMax": "PDF (max. 5MB)",
+      "fileFormats": "PDF or DOCX (max. 5MB)",
       "jobDescription": "Job description",
       "jobDescriptionPlaceholder": "Paste the full job description you're applying to here...",
       "customizeCv": "Customize my CV",
@@ -97,7 +98,8 @@
       "dataSafe": "Your data is safe and not shared with third parties"
     },
     "uploadErrors": {
-      "pdfOnly": "Please upload a PDF file.",
+      "pdfOnly": "Please upload a PDF or DOCX file.",
+      "pdfOrDocxOnly": "Please upload a PDF or DOCX file.",
       "maxSize": "File must be 5 MB or less.",
       "uploadFirst": "Please upload your CV first.",
       "invalidEmail": "Enter a valid email.",

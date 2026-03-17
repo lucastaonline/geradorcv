@@ -6,6 +6,8 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 MB
 const DESCRIPTION_MIN = 10
 const DESCRIPTION_MAX = 10000
 const PDF_MIME = 'application/pdf'
+const DOCX_MIME = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+const ALLOWED_CV_MIME_TYPES = [PDF_MIME, DOCX_MIME]
 
 export async function POST(request: Request) {
   try {
@@ -24,14 +26,14 @@ export async function POST(request: Request) {
 
     if (!cv || typeof cv === 'string') {
       return NextResponse.json(
-        { error: 'Envie um currículo em PDF.' },
+        { error: 'Envie um currículo em PDF ou DOCX.' },
         { status: 400 }
       )
     }
 
-    if (cv.type !== PDF_MIME) {
+    if (!ALLOWED_CV_MIME_TYPES.includes(cv.type)) {
       return NextResponse.json(
-        { error: 'O currículo deve ser um arquivo PDF.' },
+        { error: 'O currículo deve ser um arquivo PDF ou DOCX.' },
         { status: 400 }
       )
     }
@@ -119,7 +121,7 @@ export async function POST(request: Request) {
       html: htmlBody,
       attachments: [
         {
-          filename: cv.name || 'curriculo.pdf',
+          filename: cv.name || (cv.type === DOCX_MIME ? 'curriculo.docx' : 'curriculo.pdf'),
           content: buffer,
         },
       ],
