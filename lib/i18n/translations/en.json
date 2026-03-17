@@ -1,0 +1,159 @@
+{
+  "common": {
+    "brand": "AdaptCV",
+    "credit": "credit",
+    "credits": "credits",
+    "resume": "resume",
+    "resumes": "resumes",
+    "buy": "Buy",
+    "backToSite": "Back to site",
+    "termsOfUse": "Terms of Use",
+    "privacy": "Privacy",
+    "contact": "Contact",
+    "allRightsReserved": "All rights reserved.",
+    "paymentViaMercadoPago": "Payment via Mercado Pago.",
+    "needMoreCredits": "Need more credits?",
+    "seePackages": "See packages",
+    "yourEmail": "Your email",
+    "emailPlaceholder": "you@email.com",
+    "remove": "Remove",
+    "removeFile": "Remove file"
+  },
+  "home": {
+    "nav": {
+      "benefits": "Benefits",
+      "howItWorks": "How it works",
+      "credits": "Credits",
+      "pricing": "Pricing",
+      "buyCredits": "Buy credits",
+      "startFree": "Start free"
+    },
+    "hero": {
+      "badge": "First optimization is free",
+      "title": "Your CV",
+      "titleHighlight": "tailored",
+      "titleSuffix": "for each job",
+      "subtitle": "Our AI analyzes the job description and adapts your resume to highlight exactly what recruiters are looking for. Increase your chances by up to 3x.",
+      "ctaPrimary": "Customize my CV",
+      "ctaSecondary": "How does it work?",
+      "matchRate": "Match rate",
+      "matchRateValue": "95%",
+      "deliveryTime": "Delivery time",
+      "deliveryTimeValue": "A few hours"
+    },
+    "benefits": {
+      "title": "Why choose",
+      "titleSuffix": "?",
+      "subtitle": "Cutting-edge technology to maximize your chances of landing your dream job",
+      "ai": "Advanced AI",
+      "aiDesc": "State-of-the-art algorithms that understand the job context and your experience.",
+      "conversion": "Higher conversion",
+      "conversionDesc": "Optimized CVs are 3x more likely to pass applicant tracking systems (ATS).",
+      "time": "Save time",
+      "timeDesc": "Stop rewriting your CV manually. Results in under 1 minute.",
+      "security": "Secure data",
+      "securityDesc": "Your data is encrypted and never shared with third parties.",
+      "keywords": "Right keywords",
+      "keywordsDesc": "We identify and include the keywords recruiters look for.",
+      "ats": "ATS-friendly formats",
+      "atsDesc": "CVs formatted to pass automated screening systems."
+    },
+    "howItWorks": {
+      "title": "How it",
+      "titleHighlight": "works",
+      "subtitle": "Buy credits, upload your CV and job description, and receive your optimized resume by email. First optimization is free.",
+      "step1Title": "Buy credits",
+      "step1Desc": "Choose the package that fits you. Each credit lets you improve 1 resume. First optimization is free.",
+      "step2Title": "Upload your CV and job",
+      "step2Desc": "Upload your resume as PDF and paste the job description. Use the same email as your purchase to use your credits.",
+      "step3Title": "Receive by email",
+      "step3Desc": "Within minutes you receive your optimized resume by email, ready to send."
+    },
+    "creditsSection": {
+      "title": "Credit",
+      "titleHighlight": "system",
+      "intro": "You buy a package with credits. Each credit lets you improve 1 resume. Use them whenever you want, no expiration. First optimization is free.",
+      "bullet1": "Packages from 1 to 50 credits",
+      "bullet2": "1 credit = 1 improved resume",
+      "bullet3": "Credits never expire",
+      "cta": "See packages and pricing"
+    },
+    "pricing": {
+      "title": "Choose your",
+      "titleHighlight": "package",
+      "subtitle": "The more credits, the lower the cost per resume."
+    },
+    "upload": {
+      "title": "Get",
+      "titleHighlight": "started",
+      "subtitle": "Upload your CV and paste the job description to begin",
+      "dragCv": "Drag your CV here",
+      "orClick": "or click to select a file",
+      "pdfMax": "PDF (max. 5MB)",
+      "jobDescription": "Job description",
+      "jobDescriptionPlaceholder": "Paste the full job description you're applying to here...",
+      "customizeCv": "Customize my CV",
+      "sending": "Sending...",
+      "dataSafe": "Your data is safe and not shared with third parties"
+    },
+    "uploadErrors": {
+      "pdfOnly": "Please upload a PDF file.",
+      "maxSize": "File must be 5 MB or less.",
+      "uploadFirst": "Please upload your CV first.",
+      "invalidEmail": "Enter a valid email.",
+      "descMin": "Job description must be at least 10 characters.",
+      "descMax": "Job description must be 10,000 characters or less.",
+      "tryAgain": "Try again later.",
+      "success": "CV sent successfully! You'll receive your customized CV shortly.",
+      "sendError": "Could not send. Please try again."
+    },
+    "cta": {
+      "badge": "Start free today",
+      "title": "Ready to get more interviews?",
+      "subtitle": "Join thousands of professionals already using AdaptCV to stand out in their applications.",
+      "startNow": "Start now - Free"
+    }
+  },
+  "comprar": {
+    "title": "Buy",
+    "titleHighlight": "credits",
+    "intro": "Each credit lets you improve 1 resume. Use them whenever you want, no expiration. First optimization is free.",
+    "choosePackage": "Choose package",
+    "useEmail": "Use this email on the site to use your credits.",
+    "summary": "Summary",
+    "paymentNote": "Payment processed by Mercado Pago (PIX, card, boleto).",
+    "payButton": "Pay with Mercado Pago",
+    "redirecting": "Redirecting…",
+    "termsNote": "By purchasing, you agree to our Terms of Use and Privacy Policy.",
+    "errorPayment": "Payment was not approved. Try again or choose another payment method.",
+    "pendingPayment": "Your payment is being processed. You'll receive an email when it's approved.",
+    "errorGeneric": "Could not start payment.",
+    "errorInvalid": "Invalid response. Try again."
+  },
+  "sucesso": {
+    "approvedTitle": "Purchase",
+    "approvedHighlight": "approved!",
+    "approvedMessage": "Your credits have been registered. Use the email",
+    "ofPurchase": "from your purchase",
+    "toUseCredits": "to use them on the site.",
+    "paymentId": "Payment ID:",
+    "pendingTitle": "Payment",
+    "pendingHighlight": "processing",
+    "pendingMessage": "Your PIX or boleto has not been confirmed yet. Once the payment is approved, your credits will be registered automatically.",
+    "pendingNote": "This may take a few minutes. You don't need to do anything — you can close this page.",
+    "cta": "Improve my resume now"
+  },
+  "form": {
+    "firstFreeNote": "First optimization is free; no need to buy credits. For the next ones, use the same email as your purchase to use your credits.",
+    "cvPdf": "Your resume (PDF)",
+    "dragOrClick": "Drag the PDF here or click to select",
+    "jobDescription": "Job description",
+    "jobDescriptionPlaceholder": "Paste or describe the job (requirements, responsibilities, etc.)...",
+    "submit": "Send for customization",
+    "sending": "Sending…",
+    "sent": "Sent! We'll be in touch.",
+    "errorSend": "Could not send. Please try again.",
+    "errorPdf": "Please upload PDF files only.",
+    "errorSize": "File must be 5 MB or less."
+  }
+}

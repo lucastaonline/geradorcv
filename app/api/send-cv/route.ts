@@ -114,7 +114,7 @@ export async function POST(request: Request) {
     await transporter.sendMail({
       from: smtpUser,
       to: recipientEmail,
-      subject: `Novo CVAdapt - ${email} - ${date}`,
+      subject: `Novo AdaptCV - ${email} - ${date}`,
       text: textBody,
       html: htmlBody,
       attachments: [

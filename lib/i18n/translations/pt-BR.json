@@ -1,0 +1,159 @@
+{
+  "common": {
+    "brand": "AdaptCV",
+    "credit": "crédito",
+    "credits": "créditos",
+    "resume": "currículo",
+    "resumes": "currículos",
+    "buy": "Comprar",
+    "backToSite": "Voltar ao site",
+    "termsOfUse": "Termos de Uso",
+    "privacy": "Privacidade",
+    "contact": "Contato",
+    "allRightsReserved": "Todos os direitos reservados.",
+    "paymentViaMercadoPago": "Pagamento via Mercado Pago.",
+    "needMoreCredits": "Precisa de mais créditos?",
+    "seePackages": "Ver pacotes",
+    "yourEmail": "Seu e-mail",
+    "emailPlaceholder": "seu@email.com",
+    "remove": "Remover",
+    "removeFile": "Remover arquivo"
+  },
+  "home": {
+    "nav": {
+      "benefits": "Benefícios",
+      "howItWorks": "Como Funciona",
+      "credits": "Créditos",
+      "pricing": "Preços",
+      "buyCredits": "Comprar créditos",
+      "startFree": "Começar Grátis"
+    },
+    "hero": {
+      "badge": "A primeira otimização é grátis",
+      "title": "Seu CV",
+      "titleHighlight": "personalizado",
+      "titleSuffix": "para cada vaga",
+      "subtitle": "Nossa IA analisa a descrição da vaga e adapta seu currículo para destacar exatamente o que os recrutadores procuram. Aumente suas chances em até 3x.",
+      "ctaPrimary": "Customizar Meu CV",
+      "ctaSecondary": "Como funciona?",
+      "matchRate": "Taxa de Match",
+      "matchRateValue": "95%",
+      "deliveryTime": "Tempo de entrega",
+      "deliveryTimeValue": "Algumas horas"
+    },
+    "benefits": {
+      "title": "Por que escolher o",
+      "titleSuffix": "?",
+      "subtitle": "Tecnologia de ponta para maximizar suas chances de conseguir a vaga dos sonhos",
+      "ai": "IA Avançada",
+      "aiDesc": "Algoritmos de última geração que entendem o contexto da vaga e suas experiências.",
+      "conversion": "Maior Conversão",
+      "conversionDesc": "CVs otimizados têm 3x mais chances de passar pelos sistemas de triagem (ATS).",
+      "time": "Economize Tempo",
+      "timeDesc": "Pare de reescrever seu CV manualmente. Resultados em menos de 1 minuto.",
+      "security": "Dados Seguros",
+      "securityDesc": "Seus dados são criptografados e nunca compartilhados com terceiros.",
+      "keywords": "Palavras-chave Certas",
+      "keywordsDesc": "Identificamos e incluímos as palavras-chave que os recrutadores buscam.",
+      "ats": "Formatos ATS-Friendly",
+      "atsDesc": "CVs formatados para passar pelos sistemas automáticos de triagem."
+    },
+    "howItWorks": {
+      "title": "Como",
+      "titleHighlight": "funciona",
+      "subtitle": "Compre créditos, envie seu CV e a descrição da vaga, e receba o currículo otimizado por e-mail. A primeira otimização é grátis.",
+      "step1Title": "Compre créditos",
+      "step1Desc": "Escolha o pacote que faz sentido para você. Cada crédito permite melhorar 1 currículo. A primeira otimização é grátis.",
+      "step2Title": "Envie seu CV e a vaga",
+      "step2Desc": "Faça upload do seu currículo em PDF e cole a descrição da vaga. Use o mesmo e-mail da compra para consumir seus créditos.",
+      "step3Title": "Receba por e-mail",
+      "step3Desc": "Em poucos minutos você recebe o currículo otimizado direto no seu e-mail, pronto para enviar."
+    },
+    "creditsSection": {
+      "title": "Sistema de",
+      "titleHighlight": "créditos",
+      "intro": "Você compra um pacote com créditos. Cada crédito permite melhorar 1 currículo. Use quando quiser, sem expiração. A primeira otimização é grátis.",
+      "bullet1": "Pacotes com 1 a 50 créditos",
+      "bullet2": "1 crédito = 1 currículo melhorado",
+      "bullet3": "Créditos sem data de validade",
+      "cta": "Ver pacotes e preços"
+    },
+    "pricing": {
+      "title": "Escolha seu",
+      "titleHighlight": "pacote",
+      "subtitle": "Quanto mais créditos, melhor o custo por currículo."
+    },
+    "upload": {
+      "title": "Comece",
+      "titleHighlight": "agora",
+      "subtitle": "Faça upload do seu CV e cole a descrição da vaga para começar",
+      "dragCv": "Arraste seu CV aqui",
+      "orClick": "ou clique para selecionar um arquivo",
+      "pdfMax": "PDF (máx. 5MB)",
+      "jobDescription": "Descrição da Vaga",
+      "jobDescriptionPlaceholder": "Cole aqui a descrição completa da vaga para qual você está se candidatando...",
+      "customizeCv": "Customizar Meu CV",
+      "sending": "Enviando...",
+      "dataSafe": "Seus dados estão seguros e não são compartilhados com terceiros"
+    },
+    "uploadErrors": {
+      "pdfOnly": "Por favor, envie um arquivo PDF.",
+      "maxSize": "O arquivo deve ter no máximo 5 MB.",
+      "uploadFirst": "Por favor, faça upload do seu CV primeiro.",
+      "invalidEmail": "Informe um e-mail válido.",
+      "descMin": "A descrição da vaga deve ter pelo menos 10 caracteres.",
+      "descMax": "A descrição da vaga deve ter no máximo 10.000 caracteres.",
+      "tryAgain": "Tente novamente mais tarde.",
+      "success": "CV enviado com sucesso! Você receberá seu CV customizado em breve.",
+      "sendError": "Não foi possível enviar. Tente novamente."
+    },
+    "cta": {
+      "badge": "Comece grátis hoje",
+      "title": "Pronto para conseguir mais entrevistas?",
+      "subtitle": "Junte-se a milhares de profissionais que já estão usando o AdaptCV para destacar suas candidaturas.",
+      "startNow": "Começar Agora - Grátis"
+    }
+  },
+  "comprar": {
+    "title": "Comprar",
+    "titleHighlight": "créditos",
+    "intro": "Cada crédito permite melhorar 1 currículo. Use quando quiser, sem expiração. A primeira otimização é grátis.",
+    "choosePackage": "Escolha o pacote",
+    "useEmail": "Use seus créditos no site com este e-mail.",
+    "summary": "Resumo",
+    "paymentNote": "Pagamento processado pelo Mercado Pago (PIX, cartão, boleto).",
+    "payButton": "Pagar com Mercado Pago",
+    "redirecting": "Redirecionando…",
+    "termsNote": "Ao comprar, você concorda com nossos Termos de Uso e Política de Privacidade.",
+    "errorPayment": "O pagamento não foi aprovado. Tente novamente ou escolha outra forma de pagamento.",
+    "pendingPayment": "Seu pagamento está em processamento. Você receberá um e-mail quando for aprovado.",
+    "errorGeneric": "Não foi possível iniciar o pagamento.",
+    "errorInvalid": "Resposta inválida. Tente novamente."
+  },
+  "sucesso": {
+    "approvedTitle": "Compra",
+    "approvedHighlight": "aprovada!",
+    "approvedMessage": "Seus créditos foram registrados. Use o e-mail",
+    "ofPurchase": "da compra",
+    "toUseCredits": "para consumi-los no site.",
+    "paymentId": "ID do pagamento:",
+    "pendingTitle": "Pagamento em",
+    "pendingHighlight": "processamento",
+    "pendingMessage": "Seu PIX ou boleto ainda não foi confirmado. Assim que o pagamento for aprovado, seus créditos serão registrados automaticamente.",
+    "pendingNote": "Isso pode levar alguns minutos. Não é preciso fazer nada — você pode fechar esta página.",
+    "cta": "Melhorar meu currículo agora"
+  },
+  "form": {
+    "firstFreeNote": "A primeira otimização é grátis; não é preciso comprar créditos. Nas próximas, use o mesmo e-mail da compra para consumir seus créditos.",
+    "cvPdf": "Seu currículo (PDF)",
+    "dragOrClick": "Arraste o PDF aqui ou clique para selecionar",
+    "jobDescription": "Descrição da vaga",
+    "jobDescriptionPlaceholder": "Cole ou descreva a vaga (requisitos, responsabilidades, etc.)...",
+    "submit": "Enviar para customização",
+    "sending": "Enviando…",
+    "sent": "Enviado! Entraremos em contato.",
+    "errorSend": "Não foi possível enviar. Tente novamente.",
+    "errorPdf": "Envie apenas arquivos PDF.",
+    "errorSize": "O arquivo deve ter no máximo 5 MB."
+  }
+}

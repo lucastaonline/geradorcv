@@ -7,10 +7,13 @@ import { FileText, Check } from 'lucide-react'
 import { PACKAGES } from '@/lib/packages'
 import { Button, buttonVariants } from '@/app/components/ui/button'
 import { cn } from '@/lib/utils'
+import { useTranslations } from '@/lib/i18n'
+import LanguageSwitcher from '@/app/components/LanguageSwitcher'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 function ComprarContent() {
+  const t = useTranslations()
   const searchParams = useSearchParams()
   const pacoteParam = searchParams.get('pacote')
   const initialCredits = pacoteParam ? parseInt(pacoteParam, 10) : null
@@ -43,7 +46,7 @@ function ComprarContent() {
       if (!res.ok) {
         setStatus('error')
         setErrorMessage(
-          typeof data?.error === 'string' ? data.error : 'Não foi possível iniciar o pagamento.'
+          typeof data?.error === 'string' ? data.error : t('comprar.errorGeneric')
         )
         return
       }
@@ -52,10 +55,10 @@ function ComprarContent() {
         return
       }
       setStatus('error')
-      setErrorMessage('Resposta inválida. Tente novamente.')
+      setErrorMessage(t('comprar.errorInvalid'))
     } catch {
       setStatus('error')
-      setErrorMessage('Não foi possível iniciar o pagamento. Tente novamente.')
+      setErrorMessage(t('comprar.errorGeneric'))
     }
   }
 
@@ -67,39 +70,42 @@ function ComprarContent() {
             <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center">
               <FileText className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold text-foreground">CVAdapt</span>
+            <span className="text-xl font-bold text-foreground">{t('common.brand')}</span>
           </Link>
-          <Link
-            href="/"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Voltar ao site
-          </Link>
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            <Link
+              href="/"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {t('common.backToSite')}
+            </Link>
+          </div>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-12 sm:py-16 max-w-2xl">
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
-          Comprar <span className="text-gradient">créditos</span>
+          {t('comprar.title')} <span className="text-gradient">{t('comprar.titleHighlight')}</span>
         </h1>
         <p className="mt-2 text-muted-foreground">
-          Cada crédito permite melhorar 1 currículo. Use quando quiser, sem expiração. A primeira otimização é grátis.
+          {t('comprar.intro')}
         </p>
 
         {erro === '1' && (
           <div className="mt-6 rounded-xl border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive">
-            O pagamento não foi aprovado. Tente novamente ou escolha outra forma de pagamento.
+            {t('comprar.errorPayment')}
           </div>
         )}
         {pendente === '1' && (
           <div className="mt-6 rounded-xl border border-primary/30 bg-primary/5 p-4 text-sm text-foreground">
-            Seu pagamento está em processamento. Você receberá um e-mail quando for aprovado.
+            {t('comprar.pendingPayment')}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="mt-10 space-y-8">
           <div>
-            <p className="mb-4 text-sm font-medium text-foreground">Escolha o pacote</p>
+            <p className="mb-4 text-sm font-medium text-foreground">{t('comprar.choosePackage')}</p>
             <div className="grid gap-4 sm:grid-cols-2">
               {PACKAGES.map((p) => {
                 const selected = selectedCredits === p.credits
@@ -121,10 +127,12 @@ function ComprarContent() {
                       </div>
                     )}
                     <span className="text-lg font-semibold text-foreground">
-                      {p.credits} {p.credits === 1 ? 'crédito' : 'créditos'}
+                      {p.credits} {p.credits === 1 ? t('common.credit') : t('common.credits')}
                     </span>
                     <p className="mt-2 text-2xl font-bold text-primary">R$ {p.price}</p>
-                    <p className="mt-1 text-sm text-muted-foreground">{p.label}</p>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {p.credits} {p.credits === 1 ? t('common.resume') : t('common.resumes')}
+                    </p>
                   </button>
                 )
               })}
@@ -133,7 +141,7 @@ function ComprarContent() {
 
           <div>
             <label htmlFor="email" className="mb-2 block text-sm font-medium text-foreground">
-              Seu e-mail
+              {t('common.yourEmail')}
             </label>
             <input
               id="email"
@@ -144,22 +152,22 @@ function ComprarContent() {
                 setEmail(e.target.value)
                 setErrorMessage(null)
               }}
-              placeholder="seu@email.com"
+              placeholder={t('common.emailPlaceholder')}
               required
               className="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
             />
             <p className="mt-1 text-xs text-muted-foreground">
-              Use seus créditos no site com este e-mail.
+              {t('comprar.useEmail')}
             </p>
           </div>
 
           <div className="rounded-2xl border border-border bg-card p-6 shadow-soft">
-            <p className="text-sm font-semibold text-foreground">Resumo</p>
+            <p className="text-sm font-semibold text-foreground">{t('comprar.summary')}</p>
             <p className="mt-2 text-foreground">
-              {pkg.credits} {pkg.credits === 1 ? 'crédito' : 'créditos'} — R$ {pkg.price}
+              {pkg.credits} {pkg.credits === 1 ? t('common.credit') : t('common.credits')} — R$ {pkg.price}
             </p>
             <p className="mt-3 text-xs text-muted-foreground">
-              Pagamento processado pelo Mercado Pago (PIX, cartão, boleto).
+              {t('comprar.paymentNote')}
             </p>
           </div>
 
@@ -176,12 +184,12 @@ function ComprarContent() {
             size="lg"
             className="w-full"
           >
-            {status === 'loading' ? 'Redirecionando…' : 'Pagar com Mercado Pago'}
+            {status === 'loading' ? t('comprar.redirecting') : t('comprar.payButton')}
           </Button>
         </form>
 
         <p className="mt-8 text-center text-xs text-muted-foreground">
-          Ao comprar, você concorda com nossos Termos de Uso e Política de Privacidade.
+          {t('comprar.termsNote')}
         </p>
       </main>
     </div>

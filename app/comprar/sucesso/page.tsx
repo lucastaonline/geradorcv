@@ -6,8 +6,11 @@ import { Suspense } from 'react'
 import { CheckCircle2, Clock, FileText } from 'lucide-react'
 import { buttonVariants } from '@/app/components/ui/button'
 import { cn } from '@/lib/utils'
+import { useTranslations } from '@/lib/i18n'
+import LanguageSwitcher from '@/app/components/LanguageSwitcher'
 
 function SucessoContent() {
+  const t = useTranslations()
   const searchParams = useSearchParams()
   const status = searchParams.get('status')
   const paymentId = searchParams.get('payment_id')
@@ -27,14 +30,17 @@ function SucessoContent() {
             <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center">
               <FileText className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold text-foreground">CVAdapt</span>
+            <span className="text-xl font-bold text-foreground">{t('common.brand')}</span>
           </Link>
-          <Link
-            href="/"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Voltar ao site
-          </Link>
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            <Link
+              href="/"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {t('common.backToSite')}
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -47,20 +53,20 @@ function SucessoContent() {
               </div>
             </div>
             <h1 className="text-3xl font-bold tracking-tight text-foreground mb-4">
-              Compra <span className="text-gradient">aprovada!</span>
+              {t('sucesso.approvedTitle')} <span className="text-gradient">{t('sucesso.approvedHighlight')}</span>
             </h1>
             <p className="text-muted-foreground mb-3">
-              Seus créditos foram registrados. Use o e-mail{' '}
+              {t('sucesso.approvedMessage')}{' '}
               {buyerEmail ? (
                 <strong className="text-foreground">{buyerEmail}</strong>
               ) : (
-                'da compra'
+                t('sucesso.ofPurchase')
               )}{' '}
-              para consumi-los no site.
+              {t('sucesso.toUseCredits')}
             </p>
             {paymentId && (
               <p className="text-sm text-muted-foreground mb-8">
-                ID do pagamento: <span className="font-mono">{paymentId}</span>
+                {t('sucesso.paymentId')} <span className="font-mono">{paymentId}</span>
               </p>
             )}
           </>
@@ -72,19 +78,17 @@ function SucessoContent() {
               </div>
             </div>
             <h1 className="text-3xl font-bold tracking-tight text-foreground mb-4">
-              Pagamento em <span className="text-gradient">processamento</span>
+              {t('sucesso.pendingTitle')} <span className="text-gradient">{t('sucesso.pendingHighlight')}</span>
             </h1>
             <p className="text-muted-foreground mb-3">
-              Seu PIX ou boleto ainda não foi confirmado. Assim que o pagamento for
-              aprovado, seus créditos serão registrados automaticamente.
+              {t('sucesso.pendingMessage')}
             </p>
             <p className="text-sm text-muted-foreground mb-8">
-              Isso pode levar alguns minutos. Não é preciso fazer nada — você
-              pode fechar esta página.
+              {t('sucesso.pendingNote')}
             </p>
             {paymentId && (
               <p className="text-sm text-muted-foreground mb-8">
-                ID do pagamento: <span className="font-mono">{paymentId}</span>
+                {t('sucesso.paymentId')} <span className="font-mono">{paymentId}</span>
               </p>
             )}
           </>
@@ -94,7 +98,7 @@ function SucessoContent() {
           href="/#upload"
           className={cn(buttonVariants({ variant: 'hero', size: 'lg' }))}
         >
-          Melhorar meu currículo agora
+          {t('sucesso.cta')}
         </Link>
       </main>
     </div>

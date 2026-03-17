@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/app/components/ui/button'
 import { cn } from '@/lib/utils'
+import { useTranslations } from '@/lib/i18n'
 
 const PDF_MIME = 'application/pdf'
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 MB
@@ -44,18 +45,20 @@ export default function CVUploadSection() {
     setIsDragging(false)
   }, [])
 
+  const t = useTranslations()
+
   const validateFile = (f: File): boolean => {
     if (f.type !== PDF_MIME) {
       setSubmitMessage({
         type: 'error',
-        text: 'Por favor, envie um arquivo PDF.',
+        text: t('home.uploadErrors.pdfOnly'),
       })
       return false
     }
     if (f.size > MAX_FILE_SIZE) {
       setSubmitMessage({
         type: 'error',
-        text: 'O arquivo deve ter no máximo 5 MB.',
+        text: t('home.uploadErrors.maxSize'),
       })
       return false
     }
@@ -95,14 +98,14 @@ export default function CVUploadSection() {
     if (!file || fileStatus !== 'success') {
       setSubmitMessage({
         type: 'error',
-        text: 'Por favor, faça upload do seu CV primeiro.',
+        text: t('home.uploadErrors.uploadFirst'),
       })
       return
     }
     if (!EMAIL_REGEX.test(email.trim())) {
       setSubmitMessage({
         type: 'error',
-        text: 'Informe um e-mail válido.',
+        text: t('home.uploadErrors.invalidEmail'),
       })
       return
     }
@@ -110,14 +113,14 @@ export default function CVUploadSection() {
     if (desc.length < DESCRIPTION_MIN) {
       setSubmitMessage({
         type: 'error',
-        text: 'A descrição da vaga deve ter pelo menos 10 caracteres.',
+        text: t('home.uploadErrors.descMin'),
       })
       return
     }
     if (desc.length > DESCRIPTION_MAX) {
       setSubmitMessage({
         type: 'error',
-        text: 'A descrição da vaga deve ter no máximo 10.000 caracteres.',
+        text: t('home.uploadErrors.descMax'),
       })
       return
     }
@@ -133,13 +136,13 @@ export default function CVUploadSection() {
       if (!res.ok) {
         setSubmitMessage({
           type: 'error',
-          text: typeof data?.error === 'string' ? data.error : 'Tente novamente mais tarde.',
+          text: typeof data?.error === 'string' ? data.error : t('home.uploadErrors.tryAgain'),
         })
         return
       }
       setSubmitMessage({
         type: 'success',
-        text: 'CV enviado com sucesso! Você receberá seu CV customizado em breve.',
+        text: t('home.uploadErrors.success'),
       })
       setFile(null)
       setFileStatus('idle')
@@ -148,7 +151,7 @@ export default function CVUploadSection() {
     } catch {
       setSubmitMessage({
         type: 'error',
-        text: 'Não foi possível enviar. Tente novamente.',
+        text: t('home.uploadErrors.sendError'),
       })
     } finally {
       setIsSubmitting(false)
@@ -161,10 +164,10 @@ export default function CVUploadSection() {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Comece <span className="text-gradient">agora</span>
+              {t('home.upload.title')} <span className="text-gradient">{t('home.upload.titleHighlight')}</span>
             </h2>
             <p className="text-muted-foreground text-lg">
-              Faça upload do seu CV e cole a descrição da vaga para começar
+              {t('home.upload.subtitle')}
             </p>
           </div>
 
@@ -188,13 +191,13 @@ export default function CVUploadSection() {
                     <Upload className="w-8 h-8 text-primary" />
                   </div>
                   <h3 className="font-semibold text-lg mb-2">
-                    Arraste seu CV aqui
+                    {t('home.upload.dragCv')}
                   </h3>
                   <p className="text-muted-foreground mb-4">
-                    ou clique para selecionar um arquivo
+                    {t('home.upload.orClick')}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    PDF (máx. 5MB)
+                    {t('home.upload.pdfMax')}
                   </p>
                   <input
                     type="file"
@@ -245,7 +248,7 @@ export default function CVUploadSection() {
                       onClick={removeFile}
                       className="p-1 hover:bg-muted rounded-full transition-colors"
                       disabled={isSubmitting}
-                      aria-label="Remover arquivo"
+                      aria-label={t('common.removeFile')}
                     >
                       <X className="w-5 h-5 text-muted-foreground" />
                     </button>
@@ -256,13 +259,13 @@ export default function CVUploadSection() {
 
             <div className="mb-4">
               <label className="block font-medium mb-2 text-foreground">
-                Seu e-mail
+                {t('common.yourEmail')}
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="seu@email.com"
+                placeholder={t('common.emailPlaceholder')}
                 className="w-full h-11 px-4 rounded-xl border border-input bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                 disabled={isSubmitting}
               />
@@ -270,12 +273,12 @@ export default function CVUploadSection() {
 
             <div className="mb-6">
               <label className="block font-medium mb-2 text-foreground">
-                Descrição da Vaga
+                {t('home.upload.jobDescription')}
               </label>
               <textarea
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
-                placeholder="Cole aqui a descrição completa da vaga para qual você está se candidatando..."
+                placeholder={t('home.upload.jobDescriptionPlaceholder')}
                 className="w-full h-40 px-4 py-3 rounded-xl border border-input bg-background text-foreground placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                 disabled={isSubmitting}
                 maxLength={DESCRIPTION_MAX}
@@ -295,10 +298,10 @@ export default function CVUploadSection() {
               {isSubmitting ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  Enviando...
+                  {t('home.upload.sending')}
                 </>
               ) : (
-                'Customizar Meu CV'
+                t('home.upload.customizeCv')
               )}
             </Button>
 
@@ -316,7 +319,7 @@ export default function CVUploadSection() {
             )}
 
             <p className="text-center text-sm text-muted-foreground mt-4">
-              Seus dados estão seguros e não são compartilhados com terceiros
+              {t('home.upload.dataSafe')}
             </p>
           </form>
         </div>
