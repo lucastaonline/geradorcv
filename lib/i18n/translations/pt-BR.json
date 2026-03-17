@@ -82,7 +82,8 @@
     "pricing": {
       "title": "Escolha seu",
       "titleHighlight": "pacote",
-      "subtitle": "Quanto mais créditos, melhor o custo por currículo."
+      "subtitle": "Quanto mais créditos, melhor o custo por currículo.",
+      "firstFree": "A primeira otimização é grátis — experimente antes de comprar."
     },
     "upload": {
       "title": "Comece",

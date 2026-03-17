@@ -82,7 +82,8 @@
     "pricing": {
       "title": "Choose your",
       "titleHighlight": "package",
-      "subtitle": "The more credits, the lower the cost per resume."
+      "subtitle": "The more credits, the lower the cost per resume.",
+      "firstFree": "First optimization is free — try it before you buy."
     },
     "upload": {
       "title": "Get",

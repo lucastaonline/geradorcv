@@ -282,6 +282,9 @@ export default function Home() {
               <p className="text-muted-foreground max-w-xl mx-auto">
                 {t('home.pricing.subtitle')}
               </p>
+              <p className="mt-4 text-sm font-medium text-primary max-w-lg mx-auto">
+                {t('home.pricing.firstFree')}
+              </p>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
               {PACKAGES.map((pkg) => (
