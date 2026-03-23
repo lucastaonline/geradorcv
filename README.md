@@ -1,6 +1,6 @@
-# CV Tailor — Landing Page
+# AdaptCV — Landing Page
 
-Landing page para o produto **CV Tailor**: uma ferramenta que pega o currículo do candidato e customiza para uma vaga específica.
+Landing page para o produto **AdaptCV**: uma ferramenta que pega o currículo do candidato e adapta para uma vaga específica.
 
 ## Stack
 

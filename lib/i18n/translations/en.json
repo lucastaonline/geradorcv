@@ -29,13 +29,16 @@
       "startFree": "Start free"
     },
     "hero": {
-      "badge": "First optimization is free",
+      "badge": "First adaptation is free",
+      "headline": "Adapt your CV for each job in seconds",
       "title": "Your CV",
       "titleHighlight": "tailored",
       "titleSuffix": "for each job",
       "subtitle": "Our AI analyzes the job description and adapts your resume to highlight exactly what recruiters are looking for. Increase your chances by up to 3x.",
-      "ctaPrimary": "Customize my CV",
+      "ctaPrimary": "Adapt my CV",
       "ctaSecondary": "How does it work?",
+      "highlight1": "Increase your interview chances",
+      "highlight2": "Adapt your CV for each job in seconds",
       "matchRate": "Match rate",
       "matchRateValue": "95%",
       "deliveryTime": "Delivery time",
@@ -48,7 +51,7 @@
       "ai": "Advanced AI",
       "aiDesc": "State-of-the-art algorithms that understand the job context and your experience.",
       "conversion": "Higher conversion",
-      "conversionDesc": "Optimized CVs are 3x more likely to pass applicant tracking systems (ATS).",
+      "conversionDesc": "Adapted CVs are 3x more likely to pass applicant tracking systems (ATS).",
       "time": "Save time",
       "timeDesc": "Stop rewriting your CV manually. Results in minutes.",
       "security": "Secure data",
@@ -61,19 +64,19 @@
     "howItWorks": {
       "title": "How it",
       "titleHighlight": "works",
-      "subtitle": "Buy credits, upload your CV and job description, and receive your optimized resume by email. First optimization is free.",
+      "subtitle": "Buy credits, upload your CV and job description, and receive your adapted resume by email. First adaptation is free.",
       "step1Title": "Buy credits",
-      "step1Desc": "Choose the package that fits you. Each credit lets you improve 1 resume. First optimization is free.",
+      "step1Desc": "Choose the package that fits you. Each credit lets you adapt 1 resume. First adaptation is free.",
       "step2Title": "Upload your CV and job",
       "step2Desc": "Upload your resume as PDF and paste the job description. Use the same email as your purchase to use your credits.",
       "step3Title": "Receive by email",
-      "step3Desc": "Within minutes you receive your optimized resume by email, ready to send."
+      "step3Desc": "Within minutes you receive your adapted resume by email, ready to send."
     },
     "creditsSection": {
       "title": "Credit",
       "titleHighlight": "system",
-      "intro": "You buy a package with credits. Each credit lets you improve 1 resume. Use them whenever you want, no expiration.",
-      "introHighlight": "First optimization is free.",
+      "intro": "You buy a package with credits. Each credit lets you adapt 1 resume. Use them whenever you want, no expiration.",
+      "introHighlight": "First adaptation is free.",
       "bullet1": "Packages from 1 to 50 credits",
       "bullet2": "1 credit = 1 improved resume",
       "bullet3": "Credits never expire",
@@ -83,7 +86,7 @@
       "title": "Choose your",
       "titleHighlight": "package",
       "subtitle": "The more credits, the lower the cost per resume.",
-      "firstFree": "First optimization is free — try it before you buy."
+      "firstFree": "First adaptation is free — try it before you buy."
     },
     "upload": {
       "title": "Get",
@@ -95,7 +98,7 @@
       "fileFormats": "PDF or DOCX (max. 5MB)",
       "jobDescription": "Job description",
       "jobDescriptionPlaceholder": "Paste the full job description you're applying to here...",
-      "customizeCv": "Customize my CV",
+      "customizeCv": "Adapt my CV",
       "sending": "Sending...",
       "dataSafe": "Your data is safe and not shared with third parties"
     },
@@ -108,7 +111,7 @@
       "descMin": "Job description must be at least 10 characters.",
       "descMax": "Job description must be 10,000 characters or less.",
       "tryAgain": "Try again later.",
-      "success": "CV sent successfully! You'll receive your customized CV shortly.",
+      "success": "CV sent successfully! You'll receive your adapted CV shortly.",
       "sendError": "Could not send. Please try again."
     },
     "cta": {
@@ -121,7 +124,7 @@
   "comprar": {
     "title": "Buy",
     "titleHighlight": "credits",
-    "intro": "Each credit lets you improve 1 resume. Use them whenever you want, no expiration. First optimization is free.",
+    "intro": "Each credit lets you adapt 1 resume. Use them whenever you want, no expiration. First adaptation is free.",
     "choosePackage": "Choose package",
     "useEmail": "Use this email on the site to use your credits.",
     "summary": "Summary",
@@ -148,16 +151,25 @@
     "cta": "Improve my resume now"
   },
   "form": {
-    "firstFreeNote": "First optimization is free; no need to buy credits. For the next ones, use the same email as your purchase to use your credits.",
+    "firstFreeNote": "First adaptation is free; no need to buy credits. For the next ones, use the same email as your purchase to use your credits.",
     "cvPdf": "Your resume (PDF)",
     "dragOrClick": "Drag the PDF here or click to select",
     "jobDescription": "Job description",
     "jobDescriptionPlaceholder": "Paste or describe the job (requirements, responsibilities, etc.)...",
-    "submit": "Send for customization",
+    "submit": "Send for adaptation",
     "sending": "Sending…",
     "sent": "Sent! We'll be in touch.",
     "errorSend": "Could not send. Please try again.",
     "errorPdf": "Please upload PDF files only.",
     "errorSize": "File must be 5 MB or less."
+  },
+  "seo": {
+    "title": "AdaptCV — Your CV adapted for each job",
+    "description": "Upload your resume and the job description. Receive an adapted CV that highlights your qualifications for that specific opportunity."
+  },
+  "globalError": {
+    "title": "Something went wrong",
+    "description": "An unexpected error occurred. We've already been notified and are checking it.",
+    "backHome": "Back to home"
   }
 }

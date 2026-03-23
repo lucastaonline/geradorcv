@@ -29,13 +29,16 @@
       "startFree": "Empezar gratis"
     },
     "hero": {
-      "badge": "La primera optimización es gratis",
+      "badge": "La primera adaptación es gratis",
+      "headline": "Adapta tu CV para cada oferta en segundos",
       "title": "Tu CV",
       "titleHighlight": "personalizado",
       "titleSuffix": "para cada oferta",
       "subtitle": "Nuestra IA analiza la descripción del puesto y adapta tu currículo para destacar exactamente lo que buscan los reclutadores. Aumenta tus posibilidades hasta 3 veces.",
-      "ctaPrimary": "Personalizar mi CV",
+      "ctaPrimary": "Adaptar mi CV",
       "ctaSecondary": "¿Cómo funciona?",
+      "highlight1": "Aumenta tus posibilidades de entrevista",
+      "highlight2": "Adapta tu CV para cada oferta en segundos",
       "matchRate": "Tasa de coincidencia",
       "matchRateValue": "95%",
       "deliveryTime": "Tiempo de entrega",
@@ -48,7 +51,7 @@
       "ai": "IA avanzada",
       "aiDesc": "Algoritmos de última generación que entienden el contexto del puesto y tu experiencia.",
       "conversion": "Mayor conversión",
-      "conversionDesc": "Los CV optimizados tienen 3 veces más posibilidades de pasar los sistemas de cribado (ATS).",
+      "conversionDesc": "Los CV adaptados tienen 3 veces más posibilidades de pasar los sistemas de cribado (ATS).",
       "time": "Ahorra tiempo",
       "timeDesc": "Deja de reescribir tu CV a mano. Resultados en minutos.",
       "security": "Datos seguros",
@@ -61,19 +64,19 @@
     "howItWorks": {
       "title": "Cómo",
       "titleHighlight": "funciona",
-      "subtitle": "Compra créditos, envía tu CV y la descripción del puesto, y recibe el currículo optimizado por correo. La primera optimización es gratis.",
+      "subtitle": "Compra créditos, envía tu CV y la descripción del puesto, y recibe el currículo adaptado por correo. La primera adaptación es gratis.",
       "step1Title": "Compra créditos",
-      "step1Desc": "Elige el paquete que te convenga. Cada crédito permite mejorar 1 currículo. La primera optimización es gratis.",
+      "step1Desc": "Elige el paquete que te convenga. Cada crédito permite adaptar 1 currículo. La primera adaptación es gratis.",
       "step2Title": "Envía tu CV y la oferta",
       "step2Desc": "Sube tu currículo en PDF y pega la descripción del puesto. Usa el mismo correo de la compra para consumir tus créditos.",
       "step3Title": "Recibe por correo",
-      "step3Desc": "En pocos minutos recibes el currículo optimizado en tu correo, listo para enviar."
+      "step3Desc": "En pocos minutos recibes el currículo adaptado en tu correo, listo para enviar."
     },
     "creditsSection": {
       "title": "Sistema de",
       "titleHighlight": "créditos",
-      "intro": "Compras un paquete con créditos. Cada crédito permite mejorar 1 currículo. Úsalos cuando quieras, sin vencimiento.",
-      "introHighlight": "La primera optimización es gratis.",
+      "intro": "Compras un paquete con créditos. Cada crédito permite adaptar 1 currículo. Úsalos cuando quieras, sin vencimiento.",
+      "introHighlight": "La primera adaptación es gratis.",
       "bullet1": "Paquetes de 1 a 50 créditos",
       "bullet2": "1 crédito = 1 currículo mejorado",
       "bullet3": "Créditos sin fecha de vencimiento",
@@ -83,7 +86,7 @@
       "title": "Elige tu",
       "titleHighlight": "paquete",
       "subtitle": "Cuántos más créditos, mejor el precio por currículo.",
-      "firstFree": "La primera optimización es gratis — pruébalo antes de comprar."
+      "firstFree": "La primera adaptación es gratis — pruébalo antes de comprar."
     },
     "upload": {
       "title": "Empieza",
@@ -95,7 +98,7 @@
       "fileFormats": "PDF o DOCX (máx. 5MB)",
       "jobDescription": "Descripción del puesto",
       "jobDescriptionPlaceholder": "Pega aquí la descripción completa del puesto al que te presentas...",
-      "customizeCv": "Personalizar mi CV",
+      "customizeCv": "Adaptar mi CV",
       "sending": "Enviando...",
       "dataSafe": "Tus datos están seguros y no se comparten con terceros"
     },
@@ -108,7 +111,7 @@
       "descMin": "La descripción del puesto debe tener al menos 10 caracteres.",
       "descMax": "La descripción del puesto debe tener como máximo 10.000 caracteres.",
       "tryAgain": "Inténtalo más tarde.",
-      "success": "¡CV enviado! Recibirás tu CV personalizado en breve.",
+      "success": "¡CV enviado! Recibirás tu CV adaptado en breve.",
       "sendError": "No se pudo enviar. Inténtalo de nuevo."
     },
     "cta": {
@@ -121,7 +124,7 @@
   "comprar": {
     "title": "Comprar",
     "titleHighlight": "créditos",
-    "intro": "Cada crédito permite mejorar 1 currículo. Úsalos cuando quieras, sin vencimiento. La primera optimización es gratis.",
+    "intro": "Cada crédito permite adaptar 1 currículo. Úsalos cuando quieras, sin vencimiento. La primera adaptación es gratis.",
     "choosePackage": "Elige el paquete",
     "useEmail": "Usa este correo en el sitio para consumir tus créditos.",
     "summary": "Resumen",
@@ -148,16 +151,25 @@
     "cta": "Mejorar mi currículo ahora"
   },
   "form": {
-    "firstFreeNote": "La primera optimización es gratis; no hace falta comprar créditos. En las siguientes, usa el mismo correo de la compra para consumir tus créditos.",
+    "firstFreeNote": "La primera adaptación es gratis; no hace falta comprar créditos. En las siguientes, usa el mismo correo de la compra para consumir tus créditos.",
     "cvPdf": "Tu currículo (PDF)",
     "dragOrClick": "Arrastra el PDF aquí o haz clic para seleccionar",
     "jobDescription": "Descripción del puesto",
     "jobDescriptionPlaceholder": "Pega o describe la oferta (requisitos, responsabilidades, etc.)...",
-    "submit": "Enviar para personalizar",
+    "submit": "Enviar para adaptación",
     "sending": "Enviando…",
     "sent": "¡Enviado! Nos pondremos en contacto.",
     "errorSend": "No se pudo enviar. Inténtalo de nuevo.",
     "errorPdf": "Envía solo archivos PDF.",
     "errorSize": "El archivo debe tener como máximo 5 MB."
+  },
+  "seo": {
+    "title": "AdaptCV — Tu CV adaptado para cada oferta",
+    "description": "Envía tu currículo y la descripción del puesto. Recibe un CV adaptado que destaca tus cualificaciones para esa oportunidad específica."
+  },
+  "globalError": {
+    "title": "Algo salió mal",
+    "description": "Ocurrió un error inesperado. Ya fuimos notificados y lo estamos revisando.",
+    "backHome": "Volver al inicio"
   }
 }

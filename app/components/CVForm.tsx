@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import { useTranslations } from '@/lib/i18n'
 
 const PDF_MIME = 'application/pdf'
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 MB
@@ -12,6 +13,7 @@ type Status = 'idle' | 'loading' | 'success' | 'error'
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function CVForm() {
+  const t = useTranslations()
   const [file, setFile] = useState<File | null>(null)
   const [email, setEmail] = useState('')
   const [description, setDescription] = useState('')
@@ -45,12 +47,12 @@ export default function CVForm() {
     const item = e.dataTransfer.files[0]
     if (!item) return
     if (item.type !== PDF_MIME) {
-      setErrorMessage('Envie apenas arquivos PDF.')
+      setErrorMessage(t('form.errorPdf'))
       setFile(null)
       return
     }
     if (item.size > MAX_FILE_SIZE) {
-      setErrorMessage('O arquivo deve ter no máximo 5 MB.')
+      setErrorMessage(t('form.errorSize'))
       setFile(null)
       return
     }
@@ -65,12 +67,12 @@ export default function CVForm() {
       return
     }
     if (item.type !== PDF_MIME) {
-      setErrorMessage('Envie apenas arquivos PDF.')
+      setErrorMessage(t('form.errorPdf'))
       setFile(null)
       return
     }
     if (item.size > MAX_FILE_SIZE) {
-      setErrorMessage('O arquivo deve ter no máximo 5 MB.')
+      setErrorMessage(t('form.errorSize'))
       setFile(null)
       return
     }
@@ -102,7 +104,7 @@ export default function CVForm() {
       if (!res.ok) {
         setStatus('error')
         setErrorMessage(
-          typeof data?.error === 'string' ? data.error : 'Não foi possível enviar. Tente novamente.'
+          typeof data?.error === 'string' ? data.error : t('form.errorSend')
         )
         return
       }
@@ -113,7 +115,7 @@ export default function CVForm() {
       if (fileInputRef.current) fileInputRef.current.value = ''
     } catch {
       setStatus('error')
-      setErrorMessage('Não foi possível enviar. Tente novamente.')
+      setErrorMessage(t('form.errorSend'))
     }
   }
 
@@ -133,7 +135,7 @@ export default function CVForm() {
             htmlFor="email"
             className="mb-2 block text-sm font-medium text-primary-200"
           >
-            Seu e-mail
+            {t('common.yourEmail')}
           </label>
           <input
             id="email"
@@ -144,13 +146,13 @@ export default function CVForm() {
               setEmail(e.target.value)
               setErrorMessage(null)
             }}
-            placeholder="seu@email.com"
+            placeholder={t('common.emailPlaceholder')}
             required
             className="w-full rounded-lg border border-primary-600/50 bg-white/5 px-3 py-2.5 text-sm text-white placeholder:text-primary-400 focus:border-cta-500 focus:outline-none focus:ring-1 focus:ring-cta-500"
             disabled={status === 'loading'}
           />
           <p className="mt-1 text-xs text-primary-400">
-            A primeira otimização é grátis; não é preciso comprar créditos. Nas próximas, use o mesmo e-mail da compra para consumir seus créditos.
+            {t('form.firstFreeNote')}
           </p>
         </div>
         <div>
@@ -158,7 +160,7 @@ export default function CVForm() {
             htmlFor="cv-upload"
             className="mb-2 block text-sm font-medium text-primary-200"
           >
-            Seu currículo (PDF)
+            {t('form.cvPdf')}
           </label>
           <div
             role="button"
@@ -192,12 +194,12 @@ export default function CVForm() {
                   }}
                   className="rounded px-2 py-1 text-xs font-medium text-primary-200 hover:bg-white/10 hover:text-white"
                 >
-                  Remover
+                  {t('common.remove')}
                 </button>
               </div>
             ) : (
               <p className="text-sm text-primary-200">
-                Arraste o PDF aqui ou clique para selecionar
+                {t('form.dragOrClick')}
               </p>
             )}
           </div>
@@ -208,7 +210,7 @@ export default function CVForm() {
             htmlFor="description"
             className="mb-2 block text-sm font-medium text-primary-200"
           >
-            Descrição da vaga
+            {t('form.jobDescription')}
           </label>
           <textarea
             id="description"
@@ -218,7 +220,7 @@ export default function CVForm() {
               setDescription(e.target.value)
               setErrorMessage(null)
             }}
-            placeholder="Cole ou descreva a vaga (requisitos, responsabilidades, etc.)..."
+            placeholder={t('form.jobDescriptionPlaceholder')}
             rows={5}
             maxLength={DESCRIPTION_MAX}
             className="w-full rounded-lg border border-primary-600/50 bg-white/5 px-3 py-2.5 text-sm text-white placeholder:text-primary-400 focus:border-cta-500 focus:outline-none focus:ring-1 focus:ring-cta-500"
@@ -245,7 +247,7 @@ export default function CVForm() {
             disabled={isDisabled}
             className="w-full rounded-lg bg-cta-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-cta-400 active:bg-cta-600 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {status === 'loading' ? 'Enviando…' : 'Enviar para customização'}
+            {status === 'loading' ? t('form.sending') : t('form.submit')}
           </button>
         </div>
 
@@ -255,7 +257,7 @@ export default function CVForm() {
             role="status"
             aria-live="polite"
           >
-            Enviado! Entraremos em contato.
+            {t('form.sent')}
           </p>
         )}
         {status === 'error' && errorMessage && (

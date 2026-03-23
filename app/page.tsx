@@ -112,9 +112,7 @@ export default function Home() {
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="hero-item text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6">
-                {t('home.hero.title')} <span className="text-gradient">{t('home.hero.titleHighlight')}</span>
-                <br />
-                {t('home.hero.titleSuffix')}
+                {t('home.hero.headline')}
               </h1>
 
               <p className="hero-item text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
@@ -137,20 +135,18 @@ export default function Home() {
                 </Link>
               </div>
 
-              <div className="hero-item grid grid-cols-2 gap-8 max-w-md mx-auto">
+              <div className="hero-item grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
                 <div className="text-center">
-                  <div className="flex items-center justify-center gap-1 text-2xl md:text-3xl font-bold text-foreground mb-1">
+                  <div className="flex items-center justify-center gap-2 text-lg md:text-xl font-semibold text-foreground">
                     <Target className="w-5 h-5 text-primary" />
-                    {t('home.hero.matchRateValue')}
+                    {t('home.hero.highlight1')}
                   </div>
-                  <p className="text-sm text-muted-foreground">{t('home.hero.matchRate')}</p>
                 </div>
                 <div className="text-center">
-                  <div className="flex items-center justify-center gap-1 text-2xl md:text-3xl font-bold text-foreground mb-1">
+                  <div className="flex items-center justify-center gap-2 text-lg md:text-xl font-semibold text-foreground">
                     <Zap className="w-5 h-5 text-accent" />
-                    {t('home.hero.deliveryTimeValue')}
+                    {t('home.hero.highlight2')}
                   </div>
-                  <p className="text-sm text-muted-foreground">{t('home.hero.deliveryTime')}</p>
                 </div>
               </div>
             </div>
