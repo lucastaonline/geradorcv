@@ -112,7 +112,9 @@ export default function Home() {
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="hero-item text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6">
-                {t('home.hero.headline')}
+                {t('home.hero.headlineBefore')}{' '}
+                <span className="text-gradient">{t('home.hero.headlineHighlight')}</span>{' '}
+                {t('home.hero.headlineAfter')}
               </h1>
 
               <p className="hero-item text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
@@ -135,20 +137,6 @@ export default function Home() {
                 </Link>
               </div>
 
-              <div className="hero-item grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-2 text-lg md:text-xl font-semibold text-foreground">
-                    <Target className="w-5 h-5 text-primary" />
-                    {t('home.hero.highlight1')}
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-2 text-lg md:text-xl font-semibold text-foreground">
-                    <Zap className="w-5 h-5 text-accent" />
-                    {t('home.hero.highlight2')}
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
