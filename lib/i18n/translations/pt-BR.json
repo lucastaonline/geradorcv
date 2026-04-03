@@ -168,6 +168,14 @@
     "errorPdf": "Envie apenas arquivos PDF.",
     "errorSize": "O arquivo deve ter no máximo 5 MB."
   },
+  "cookies": {
+    "dialogLabel": "Consentimento de cookies",
+    "banner": "Usamos cookies essenciais e, se você aceitar, cookies do Google Analytics para medir o uso do site. Saiba mais na ",
+    "privacy": "Política de privacidade",
+    "bannerSuffix": ".",
+    "accept": "Aceitar",
+    "reject": "Recusar"
+  },
   "seo": {
     "title": "AdaptCV — Seu CV adaptado para cada vaga",
     "description": "Envie seu currículo e a descrição da vaga. Receba um CV adaptado que destaca suas qualificações para aquela oportunidade específica."

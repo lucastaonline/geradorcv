@@ -385,18 +385,18 @@ export default function Home() {
             </Link>
 
             <nav className="flex items-center gap-6">
-              <a
-                href="#"
+              <Link
+                href="/termos"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 {t('common.termsOfUse')}
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                href="/privacidade"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 {t('common.privacy')}
-              </a>
+              </Link>
               <a
                 href="#"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"

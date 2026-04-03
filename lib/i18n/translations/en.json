@@ -168,6 +168,14 @@
     "errorPdf": "Please upload PDF files only.",
     "errorSize": "File must be 5 MB or less."
   },
+  "cookies": {
+    "dialogLabel": "Cookie consent",
+    "banner": "We use essential cookies and, if you accept, Google Analytics cookies to measure site usage. Learn more in our ",
+    "privacy": "Privacy Policy",
+    "bannerSuffix": ".",
+    "accept": "Accept",
+    "reject": "Decline"
+  },
   "seo": {
     "title": "AdaptCV — Your CV adapted for each job",
     "description": "Upload your resume and the job description. Receive an adapted CV that highlights your qualifications for that specific opportunity."

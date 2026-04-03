@@ -4,7 +4,7 @@ import './globals.css'
 import { LocaleProvider } from '@/lib/i18n'
 import { localeFromAcceptLanguage } from '@/lib/i18n/accept-language'
 import { COOKIE_NAME, type Locale } from '@/lib/i18n'
-import GoogleAnalytics from '@/app/components/GoogleAnalytics'
+import CookieConsent from '@/app/components/CookieConsent'
 import { getTranslation } from '@/lib/i18n/get'
 import ptBR from '@/lib/i18n/translations/pt-BR.json'
 import en from '@/lib/i18n/translations/en.json'
@@ -60,8 +60,10 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className="bg-background text-foreground font-sans antialiased">
-        <GoogleAnalytics />
-        <LocaleProvider initialLocale={locale}>{children}</LocaleProvider>
+        <LocaleProvider initialLocale={locale}>
+          {children}
+          <CookieConsent />
+        </LocaleProvider>
       </body>
     </html>
   )
