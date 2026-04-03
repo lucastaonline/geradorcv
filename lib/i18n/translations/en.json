@@ -125,10 +125,9 @@
       "sendError": "Could not send. Please try again."
     },
     "cta": {
-      "badge": "Start free today",
-      "title": "Ready to get more interviews?",
-      "subtitle": "Join thousands of professionals already using AdaptCV to stand out in their applications.",
-      "startNow": "Start now - Free"
+      "title": "Want to see it on your own resume?",
+      "subtitle": "You get the tailored resume by email. The first time is free; after that, use credits whenever you need another adaptation.",
+      "startNow": "Send my CV now"
     }
   },
   "comprar": {

@@ -125,10 +125,9 @@
       "sendError": "Não foi possível enviar. Tente novamente."
     },
     "cta": {
-      "badge": "Comece grátis hoje",
-      "title": "Pronto para conseguir mais entrevistas?",
-      "subtitle": "Junte-se a milhares de profissionais que já estão usando o AdaptCV para destacar suas candidaturas.",
-      "startNow": "Começar Agora - Grátis"
+      "title": "Quer ver o resultado na prática?",
+      "subtitle": "Você recebe o currículo ajustado por e-mail. A primeira vez é grátis; depois, créditos quando precisar adaptar de novo.",
+      "startNow": "Enviar meu CV agora"
     }
   },
   "comprar": {
