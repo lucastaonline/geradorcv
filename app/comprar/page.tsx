@@ -2,13 +2,17 @@
 
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { useState, Suspense } from 'react'
+import { useState, Suspense, useEffect } from 'react'
 import { FileText, Check } from 'lucide-react'
 import { PACKAGES } from '@/lib/packages'
 import { Button, buttonVariants } from '@/app/components/ui/button'
 import { cn } from '@/lib/utils'
 import { useTranslations } from '@/lib/i18n'
 import LanguageSwitcher from '@/app/components/LanguageSwitcher'
+import {
+  CHECKOUT_SESSION_KEY,
+  trackGa4Event,
+} from '@/lib/analytics/client'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -31,6 +35,10 @@ function ComprarContent() {
   const isValid = EMAIL_REGEX.test(email.trim())
   const isDisabled = !isValid || status === 'loading'
 
+  useEffect(() => {
+    trackGa4Event('view_checkout')
+  }, [])
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!isValid) return
@@ -51,6 +59,29 @@ function ComprarContent() {
         return
       }
       if (data.init_point) {
+        try {
+          sessionStorage.setItem(
+            CHECKOUT_SESSION_KEY,
+            JSON.stringify({
+              credits: selectedCredits,
+              value: pkg.price,
+            })
+          )
+        } catch {
+          // ignore
+        }
+        trackGa4Event('begin_checkout', {
+          currency: 'BRL',
+          value: pkg.price,
+          items: [
+            {
+              item_id: `credits-${pkg.credits}`,
+              item_name: `${pkg.credits} credits`,
+              price: pkg.price,
+              quantity: 1,
+            },
+          ],
+        })
         window.location.href = data.init_point
         return
       }

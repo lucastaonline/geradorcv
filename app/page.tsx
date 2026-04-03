@@ -5,8 +5,6 @@ import {
   FileText,
   Sparkles,
   ArrowRight,
-  Target,
-  Zap,
   CreditCard,
   Upload,
   Mail,
@@ -23,6 +21,7 @@ import { PACKAGES } from '@/lib/packages'
 import CVUploadSection from './components/CVUploadSection'
 import LanguageSwitcher from './components/LanguageSwitcher'
 import { useTranslations } from '@/lib/i18n'
+import { trackBuyCreditsClick } from '@/lib/analytics/client'
 
 const HOW_IT_WORKS_KEYS = [
   { icon: CreditCard, number: '01', titleKey: 'home.howItWorks.step1Title', descKey: 'home.howItWorks.step1Desc' },
@@ -86,6 +85,7 @@ export default function Home() {
             <LanguageSwitcher />
             <Link
               href="/comprar"
+              onClick={() => trackBuyCreditsClick('header')}
               className={cn(buttonVariants({ variant: 'heroOutline', size: 'sm' }), 'hidden sm:inline-flex')}
             >
               {t('home.nav.buyCredits')}
@@ -296,6 +296,9 @@ export default function Home() {
                   </p>
                   <Link
                     href={`/comprar?pacote=${pkg.credits}`}
+                    onClick={() =>
+                      trackBuyCreditsClick('pricing', { credits: pkg.credits })
+                    }
                     className={cn(
                       buttonVariants({ variant: 'hero', size: 'default' }),
                       'mt-4 w-full inline-flex justify-center'
@@ -344,6 +347,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/comprar"
+                  onClick={() => trackBuyCreditsClick('cta_section')}
                   className={cn(buttonVariants({ variant: 'heroOutline', size: 'xl' }))}
                 >
                   {t('home.nav.buyCredits')}
@@ -352,7 +356,11 @@ export default function Home() {
 
               <p className="text-sm text-muted-foreground">
                 {t('common.paymentViaMercadoPago')} {t('common.needMoreCredits')}{' '}
-                <Link href="/comprar" className="text-primary font-medium hover:underline">
+                <Link
+                  href="/comprar"
+                  onClick={() => trackBuyCreditsClick('cta_footer_link')}
+                  className="text-primary font-medium hover:underline"
+                >
                   {t('common.seePackages')}
                 </Link>
               </p>

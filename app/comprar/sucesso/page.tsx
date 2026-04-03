@@ -2,12 +2,17 @@
 
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import { CheckCircle2, Clock, FileText } from 'lucide-react'
 import { buttonVariants } from '@/app/components/ui/button'
 import { cn } from '@/lib/utils'
 import { useTranslations } from '@/lib/i18n'
 import LanguageSwitcher from '@/app/components/LanguageSwitcher'
+import {
+  CHECKOUT_SESSION_KEY,
+  PURCHASE_SENT_PREFIX,
+  trackGa4Event,
+} from '@/lib/analytics/client'
 
 function SucessoContent() {
   const t = useTranslations()
@@ -21,6 +26,41 @@ function SucessoContent() {
   // sem status      → veio de um redirect manual ou link direto
   const isPending = status === 'pending'
   const isApproved = status === 'approved' || (!status && !isPending)
+
+  useEffect(() => {
+    if (!isApproved || !paymentId) return
+    const sentKey = `${PURCHASE_SENT_PREFIX}${paymentId}`
+    if (sessionStorage.getItem(sentKey)) return
+
+    let credits = 1
+    let value = 0
+    try {
+      const raw = sessionStorage.getItem(CHECKOUT_SESSION_KEY)
+      if (raw) {
+        const parsed = JSON.parse(raw) as { credits?: number; value?: number }
+        if (typeof parsed.credits === 'number') credits = parsed.credits
+        if (typeof parsed.value === 'number') value = parsed.value
+      }
+    } catch {
+      // ignore
+    }
+
+    trackGa4Event('purchase', {
+      transaction_id: String(paymentId),
+      currency: 'BRL',
+      value,
+      items: [
+        {
+          item_id: `credits-${credits}`,
+          item_name: `${credits} credits`,
+          price: value,
+          quantity: 1,
+        },
+      ],
+    })
+    sessionStorage.setItem(sentKey, '1')
+    sessionStorage.removeItem(CHECKOUT_SESSION_KEY)
+  }, [isApproved, paymentId])
 
   return (
     <div className="min-h-screen bg-background">

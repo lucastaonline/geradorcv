@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import * as Sentry from '@sentry/nextjs'
+import { hashEmailForLog, logCheckoutStarted } from '@/lib/analytics/checkout-log'
 import { getPackageByCredits } from '@/lib/packages'
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -119,6 +120,13 @@ export async function POST(request: Request) {
         { status: 500 }
       )
     }
+
+    logCheckoutStarted({
+      emailHash: hashEmailForLog(emailTrimmed),
+      credits: pkg.credits,
+      price: pkg.price,
+      referer: request.headers.get('referer'),
+    })
 
     return NextResponse.json({ init_point: initPoint })
   } catch (err) {
