@@ -105,7 +105,12 @@
       "jobDescriptionPlaceholder": "Pega aquí la descripción completa del puesto al que te presentas...",
       "customizeCv": "Adaptar mi CV",
       "sending": "Enviando...",
-      "dataSafe": "Tus datos están seguros y no se comparten con terceros"
+      "dataSafe": "Tus datos están seguros y no se comparten con terceros",
+      "shortDescDialogTitle": "Descripción del puesto muy breve",
+      "shortDescDialogBody": "AdaptCV usa la descripción del puesto para adaptar tu CV: entendemos requisitos, palabras clave y el contexto del rol. Cuanto más pegues del anuncio (funciones, requisitos, etc.), mejor será el resultado.",
+      "shortDescDialogQuestion": "¿Seguro que quieres enviarlo así? Sin ese contexto, la adaptación será menos precisa.",
+      "shortDescDialogCancel": "Volver y completar",
+      "shortDescDialogConfirm": "Enviar igualmente"
     },
     "uploadErrors": {
       "pdfOnly": "Por favor, envía un archivo PDF o DOCX.",

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import {
   Upload,
   FileText,
@@ -18,6 +18,8 @@ const DOCX_MIME = 'application/vnd.openxmlformats-officedocument.wordprocessingm
 const ALLOWED_MIME_TYPES = [PDF_MIME, DOCX_MIME]
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 MB
 const DESCRIPTION_MIN = 10
+/** Abaixo disso (mas ≥ mínimo), pedimos confirmação antes de enviar. */
+const DESCRIPTION_RECOMMENDED_MIN = 100
 const DESCRIPTION_MAX = 10000
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -30,6 +32,7 @@ export default function CVUploadSection() {
   const [email, setEmail] = useState('')
   const [jobDescription, setJobDescription] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showShortDescDialog, setShowShortDescDialog] = useState(false)
   const [submitMessage, setSubmitMessage] = useState<{
     type: 'success' | 'error'
     text: string
@@ -94,6 +97,43 @@ export default function CVUploadSection() {
     setSubmitMessage(null)
   }
 
+  const performSubmit = async (desc: string) => {
+    if (!file || fileStatus !== 'success') return
+    if (desc.length < DESCRIPTION_MIN || desc.length > DESCRIPTION_MAX) return
+    setShowShortDescDialog(false)
+    setIsSubmitting(true)
+    try {
+      const formData = new FormData()
+      formData.append('cv', file)
+      formData.append('email', email.trim())
+      formData.append('description', desc)
+      const res = await fetch('/api/send-cv', { method: 'POST', body: formData })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        setSubmitMessage({
+          type: 'error',
+          text: typeof data?.error === 'string' ? data.error : t('home.uploadErrors.tryAgain'),
+        })
+        return
+      }
+      setSubmitMessage({
+        type: 'success',
+        text: t('home.uploadErrors.success'),
+      })
+      setFile(null)
+      setFileStatus('idle')
+      setEmail('')
+      setJobDescription('')
+    } catch {
+      setSubmitMessage({
+        type: 'error',
+        text: t('home.uploadErrors.sendError'),
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitMessage(null)
@@ -127,38 +167,22 @@ export default function CVUploadSection() {
       return
     }
 
-    setIsSubmitting(true)
-    try {
-      const formData = new FormData()
-      formData.append('cv', file)
-      formData.append('email', email.trim())
-      formData.append('description', desc)
-      const res = await fetch('/api/send-cv', { method: 'POST', body: formData })
-      const data = await res.json().catch(() => ({}))
-      if (!res.ok) {
-        setSubmitMessage({
-          type: 'error',
-          text: typeof data?.error === 'string' ? data.error : t('home.uploadErrors.tryAgain'),
-        })
-        return
-      }
-      setSubmitMessage({
-        type: 'success',
-        text: t('home.uploadErrors.success'),
-      })
-      setFile(null)
-      setFileStatus('idle')
-      setEmail('')
-      setJobDescription('')
-    } catch {
-      setSubmitMessage({
-        type: 'error',
-        text: t('home.uploadErrors.sendError'),
-      })
-    } finally {
-      setIsSubmitting(false)
+    if (desc.length < DESCRIPTION_RECOMMENDED_MIN) {
+      setShowShortDescDialog(true)
+      return
     }
+
+    await performSubmit(desc)
   }
+
+  useEffect(() => {
+    if (!showShortDescDialog) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setShowShortDescDialog(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [showShortDescDialog])
 
   return (
     <section id="upload" className="py-20 bg-muted/30">
@@ -325,6 +349,57 @@ export default function CVUploadSection() {
               {t('home.upload.dataSafe')}
             </p>
           </form>
+
+          {showShortDescDialog ? (
+            <div
+              className="fixed inset-0 z-[60] flex items-end justify-center p-4 sm:items-center"
+              role="presentation"
+            >
+              <button
+                type="button"
+                className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+                aria-label={t('home.upload.shortDescDialogCancel')}
+                onClick={() => setShowShortDescDialog(false)}
+              />
+              <div
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="short-desc-dialog-title"
+                className="relative z-[61] w-full max-w-lg rounded-2xl border border-border bg-card p-6 shadow-glow"
+              >
+                <h3
+                  id="short-desc-dialog-title"
+                  className="text-lg font-semibold text-foreground"
+                >
+                  {t('home.upload.shortDescDialogTitle')}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {t('home.upload.shortDescDialogBody')}
+                </p>
+                <p className="mt-3 text-sm font-medium text-foreground">
+                  {t('home.upload.shortDescDialogQuestion')}
+                </p>
+                <div className="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={isSubmitting}
+                    onClick={() => setShowShortDescDialog(false)}
+                  >
+                    {t('home.upload.shortDescDialogCancel')}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="hero"
+                    disabled={isSubmitting}
+                    onClick={() => void performSubmit(jobDescription.trim())}
+                  >
+                    {t('home.upload.shortDescDialogConfirm')}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
         </div>
       </div>

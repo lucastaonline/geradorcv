@@ -105,7 +105,12 @@
       "jobDescriptionPlaceholder": "Paste the full job description you're applying to here...",
       "customizeCv": "Adapt my CV",
       "sending": "Sending...",
-      "dataSafe": "Your data is safe and not shared with third parties"
+      "dataSafe": "Your data is safe and not shared with third parties",
+      "shortDescDialogTitle": "Very short job description",
+      "shortDescDialogBody": "AdaptCV uses the job description to tailor your resume: we pick up requirements, keywords, and role context. The more you paste from the posting (duties, requirements, company info), the better the result.",
+      "shortDescDialogQuestion": "Are you sure you want to submit anyway? Without that context, the adaptation will be less accurate.",
+      "shortDescDialogCancel": "Go back and add more",
+      "shortDescDialogConfirm": "Submit anyway"
     },
     "uploadErrors": {
       "pdfOnly": "Please upload a PDF or DOCX file.",

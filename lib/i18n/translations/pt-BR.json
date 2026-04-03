@@ -105,7 +105,12 @@
       "jobDescriptionPlaceholder": "Cole aqui a descrição completa da vaga para qual você está se candidatando...",
       "customizeCv": "Adaptar Meu CV",
       "sending": "Enviando...",
-      "dataSafe": "Seus dados estão seguros e não são compartilhados com terceiros"
+      "dataSafe": "Seus dados estão seguros e não são compartilhados com terceiros",
+      "shortDescDialogTitle": "Descrição da vaga bem curta",
+      "shortDescDialogBody": "O AdaptCV usa a descrição da vaga para adaptar seu currículo: entendemos requisitos, palavras-chave e o contexto do cargo. Quanto mais você colar da vaga (texto do anúncio, responsabilidades, requisitos), melhor fica o resultado.",
+      "shortDescDialogQuestion": "Tem certeza de que deseja enviar mesmo assim? Sem esse contexto, a adaptação fica menos precisa.",
+      "shortDescDialogCancel": "Voltar e complementar",
+      "shortDescDialogConfirm": "Enviar mesmo assim"
     },
     "uploadErrors": {
       "pdfOnly": "Por favor, envie um arquivo PDF ou DOCX.",
