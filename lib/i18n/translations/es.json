@@ -77,6 +77,17 @@
       "step3Title": "Recibe por correo",
       "step3Desc": "En pocos minutos recibes el currículo adaptado en tu correo, listo para enviar."
     },
+    "beforeAfter": {
+      "title": "De genérico a",
+      "titleHighlight": "alineado al puesto",
+      "subtitle": "Mira cómo cambian el resumen, las competencias y la experiencia cuando el CV se adapta a una oferta real.",
+      "dragHint": "Arrastra el control para ver la transformación.",
+      "labelBefore": "← antes",
+      "labelAfter": "después →",
+      "beforeTopicsTitle": "Antes era así",
+      "afterTopicsTitle": "Después",
+      "sliderAriaLabel": "Comparar currículo antes y después"
+    },
     "creditsSection": {
       "title": "Sistema de",
       "titleHighlight": "créditos",

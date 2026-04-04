@@ -77,6 +77,17 @@
       "step3Title": "Receive by email",
       "step3Desc": "Within minutes you receive your adapted resume by email, ready to send."
     },
+    "beforeAfter": {
+      "title": "From generic to",
+      "titleHighlight": "job-aligned",
+      "subtitle": "See how the summary, skills, and experience change when the resume is tailored to a real job posting.",
+      "dragHint": "Drag the slider to see the transformation.",
+      "labelBefore": "← before",
+      "labelAfter": "after →",
+      "beforeTopicsTitle": "Before",
+      "afterTopicsTitle": "After",
+      "sliderAriaLabel": "Compare resume before and after adaptation"
+    },
     "creditsSection": {
       "title": "Credit",
       "titleHighlight": "system",

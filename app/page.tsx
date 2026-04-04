@@ -19,6 +19,7 @@ import { buttonVariants } from './components/ui/button'
 import { cn } from '@/lib/utils'
 import { PACKAGES } from '@/lib/packages'
 import CVUploadSection from './components/CVUploadSection'
+import BeforeAfterCVSlider from './components/BeforeAfterCVSlider'
 import LanguageSwitcher from './components/LanguageSwitcher'
 import { useTranslations } from '@/lib/i18n'
 import { trackBuyCreditsClick } from '@/lib/analytics/client'
@@ -216,6 +217,30 @@ export default function Home() {
                 </div>
               ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="antes-depois"
+          className="border-t border-border/60 py-24 bg-card"
+          aria-labelledby="antes-depois-heading"
+        >
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12 md:mb-16">
+                <h2
+                  id="antes-depois-heading"
+                  className="text-3xl md:text-4xl font-bold mb-4"
+                >
+                  {t('home.beforeAfter.title')}{' '}
+                  <span className="text-gradient">{t('home.beforeAfter.titleHighlight')}</span>
+                </h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  {t('home.beforeAfter.subtitle')}
+                </p>
+              </div>
+              <BeforeAfterCVSlider />
             </div>
           </div>
         </section>
