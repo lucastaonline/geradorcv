@@ -190,6 +190,57 @@ function StoryParagraph({ parts }: { parts: StoryPart[] }) {
   )
 }
 
+/** Parecido com arrastar e soltar: acelera no meio, freia ao chegar (ease in-out). */
+function easeInOutQuad(t: number): number {
+  return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
+}
+
+function animatePct(
+  from: number,
+  to: number,
+  durationMs: number,
+  setPct: (v: number) => void,
+  shouldAbort: () => boolean
+): Promise<void> {
+  return new Promise((resolve) => {
+    const start = performance.now()
+    const step = (now: number) => {
+      if (shouldAbort()) {
+        resolve()
+        return
+      }
+      const t = Math.min(1, (now - start) / durationMs)
+      const e = easeInOutQuad(t)
+      setPct(from + (to - from) * e)
+      if (t < 1) {
+        requestAnimationFrame(step)
+      } else {
+        resolve()
+      }
+    }
+    requestAnimationFrame(step)
+  })
+}
+
+function sleep(ms: number, shouldAbort: () => boolean): Promise<void> {
+  return new Promise((resolve) => {
+    let settled = false
+    const finish = () => {
+      if (settled) return
+      settled = true
+      window.clearInterval(poll)
+      resolve()
+    }
+    const t = window.setTimeout(finish, ms)
+    const poll = window.setInterval(() => {
+      if (shouldAbort()) {
+        window.clearTimeout(t)
+        finish()
+      }
+    }, 80)
+  })
+}
+
 export default function BeforeAfterCVSlider() {
   const { locale } = useLocale()
   const t = useTranslations()
@@ -198,6 +249,8 @@ export default function BeforeAfterCVSlider() {
   const wrapRef = useRef<HTMLDivElement>(null)
   const [pct, setPct] = useState(50)
   const dragging = useRef(false)
+  const cancelIntroRef = useRef(false)
+  const introStartedRef = useRef(false)
 
   const update = useCallback((clientX: number) => {
     const el = wrapRef.current
@@ -233,31 +286,84 @@ export default function BeforeAfterCVSlider() {
   }, [update])
 
   useEffect(() => {
-    let p = 50
-    const target = 34
-    const iv = setInterval(() => {
-      p += (target - p) * 0.1
-      if (Math.abs(p - target) < 0.3) {
-        p = target
-        clearInterval(iv)
+    if (typeof window === 'undefined') return
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reducedMotion) return
+
+    cancelIntroRef.current = false
+
+    const shouldAbort = () => cancelIntroRef.current
+
+    /**
+     * Simula o arraste do usuário: puxa para um lado (mais “depois”), depois o outro (mais “antes”), volta ao meio.
+     * Valores em % da largura (mesmo cálculo do mouse).
+     */
+    const playIntro = async () => {
+      let cursor = 50
+      const setSmooth = (v: number) => {
+        cursor = v
+        setPct(v)
       }
-      setPct(p)
-    }, 16)
-    const reset = setTimeout(() => {
-      clearInterval(iv)
-      let p2 = target
-      const iv2 = setInterval(() => {
-        p2 += (50 - p2) * 0.08
-        if (Math.abs(p2 - 50) < 0.3) {
-          p2 = 50
-          clearInterval(iv2)
-        }
-        setPct(p2)
-      }, 16)
-    }, 1800)
+
+      const pauseAfterDrag = 450
+      const dragMs = 1100
+
+      await animatePct(cursor, 22, dragMs, setSmooth, shouldAbort)
+      if (shouldAbort()) return
+      await sleep(pauseAfterDrag, shouldAbort)
+      if (shouldAbort()) return
+
+      await animatePct(cursor, 78, dragMs, setSmooth, shouldAbort)
+      if (shouldAbort()) return
+      await sleep(pauseAfterDrag, shouldAbort)
+      if (shouldAbort()) return
+
+      await animatePct(cursor, 50, dragMs, setSmooth, shouldAbort)
+    }
+
+    let observer: IntersectionObserver | null = null
+    let cancelled = false
+
+    const startWhenVisible = () => {
+      const el = wrapRef.current
+      if (!el || cancelled) return
+
+      const run = () => {
+        if (introStartedRef.current || cancelled) return
+        introStartedRef.current = true
+        observer?.disconnect()
+        observer = null
+        void playIntro()
+      }
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries.some((e) => e.isIntersecting)
+          if (!visible) return
+          run()
+        },
+        { threshold: 0, rootMargin: '60px 0px 60px 0px' }
+      )
+
+      observer.observe(el)
+
+      const rect = el.getBoundingClientRect()
+      const vh = window.innerHeight || 0
+      if (rect.top < vh && rect.bottom > 0) {
+        run()
+      }
+    }
+
+    const raf = requestAnimationFrame(() => {
+      requestAnimationFrame(startWhenVisible)
+    })
+
     return () => {
-      clearInterval(iv)
-      clearTimeout(reset)
+      cancelled = true
+      cancelIntroRef.current = true
+      cancelAnimationFrame(raf)
+      observer?.disconnect()
     }
   }, [])
 
@@ -310,16 +416,19 @@ export default function BeforeAfterCVSlider() {
           'touch-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
         )}
         onMouseDown={(e) => {
+          cancelIntroRef.current = true
           dragging.current = true
           update(e.clientX)
         }}
         onTouchStart={(e) => {
+          cancelIntroRef.current = true
           dragging.current = true
           update(e.touches[0].clientX)
         }}
         onKeyDown={(e) => {
           if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
             e.preventDefault()
+            cancelIntroRef.current = true
             const delta = e.key === 'ArrowLeft' ? 4 : -4
             setPct((p) => Math.max(4, Math.min(96, p + delta)))
           }
