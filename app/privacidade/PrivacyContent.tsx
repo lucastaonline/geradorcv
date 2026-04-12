@@ -8,11 +8,7 @@ export default function PrivacyContent() {
   const t = useTranslations()
 
   return (
-    <LegalPageShell
-      title={t('legal.privacy.title')}
-      meta={t('legal.privacy.meta')}
-      footerEmail={t('legal.privacy.footerEmail')}
-    >
+    <LegalPageShell title={t('legal.privacy.title')} meta={t('legal.privacy.meta')}>
       <PrivacyLegalArticle />
     </LegalPageShell>
   )

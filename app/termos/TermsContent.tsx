@@ -8,11 +8,7 @@ export default function TermsContent() {
   const t = useTranslations()
 
   return (
-    <LegalPageShell
-      title={t('legal.terms.title')}
-      meta={t('legal.terms.meta')}
-      footerEmail={t('legal.terms.footerEmail')}
-    >
+    <LegalPageShell title={t('legal.terms.title')} meta={t('legal.terms.meta')}>
       <TermsLegalArticle />
     </LegalPageShell>
   )

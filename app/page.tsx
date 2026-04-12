@@ -3,7 +3,6 @@
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import {
-  FileText,
   Sparkles,
   ArrowRight,
   CreditCard,
@@ -27,6 +26,7 @@ import { cn } from '@/lib/utils'
 import { PACKAGES } from '@/lib/packages'
 import CVUploadSection from './components/CVUploadSection'
 import BeforeAfterCVSlider from './components/BeforeAfterCVSlider'
+import { SiteFooter } from './components/SiteFooter'
 import { SiteHeader } from './components/SiteHeader'
 import { useTranslations } from '@/lib/i18n'
 import { trackBuyCreditsClick } from '@/lib/analytics/client'
@@ -427,47 +427,7 @@ export default function Home() {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="py-12 bg-background border-t border-border/50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-            <Link
-              href="/"
-              className="flex items-center gap-2"
-            >
-              <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center">
-                <FileText className="w-4 h-4 text-primary-foreground" />
-              </div>
-              <span className="text-lg font-bold text-foreground">{t('common.brand')}</span>
-            </Link>
-
-            <nav className="flex items-center gap-6">
-              <Link
-                href="/termos"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {t('common.termsOfUse')}
-              </Link>
-              <Link
-                href="/privacidade"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {t('common.privacy')}
-              </Link>
-              <a
-                href="#"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {t('common.contact')}
-              </a>
-            </nav>
-
-            <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} {t('common.brand')}. {t('common.allRightsReserved')}
-            </p>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }
