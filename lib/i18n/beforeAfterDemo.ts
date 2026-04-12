@@ -2,42 +2,49 @@ import type { Locale } from './types'
 
 export type Token = string | { kw: string }
 
-export type SkillGroupBefore = { label: string; items: string[] }
-export type SkillItemAfter = string | { kw: string }
-export type SkillGroupAfter = { label: string; items: SkillItemAfter[] }
+export type BeforeJob = {
+  company: string
+  period: string
+  body: string
+}
 
 export type BeforeCv = {
   name: string
   title: string
-  summary: string
-  contact: string[]
-  skills: SkillGroupBefore[]
-  experience: {
-    company: string
-    role: string
-    bullets: string[]
-  }
-  education: { degree: string; detail: string }
+  /** Faixa cinza sob o cabeçalho (visual “documento antigo”) */
+  mutedBanner: string
   sections: {
-    knowledge: string
+    about: string
     experience: string
+    skills: string
     education: string
   }
+  aboutBody: string
+  jobs: BeforeJob[]
+  skillsLine: string
+  education: { degree: string; detail: string }
+}
+
+export type AfterSkillRow = {
+  label: string
+  parts: Token[]
+}
+
+export type AfterJob = {
+  roleTitle: string
+  companyLine: string
+  intro: Token[]
+  highlights: Token[][]
 }
 
 export type AfterCv = {
   name: string
   subtitlePrefix: string
-  titleKws: string[]
+  headlineKeywords: Token[]
   contactLine: string
   summary: Token[]
-  skills: SkillGroupAfter[]
-  experience: {
-    roleTitle: string
-    companyLine: string
-    context: Token[]
-    bullets: Token[][]
-  }
+  skillRows: AfterSkillRow[]
+  jobs: AfterJob[]
   education: { degree: string; detail: string }
   sections: {
     summary: string
@@ -47,7 +54,6 @@ export type AfterCv = {
   }
 }
 
-/** Fragmentos do parágrafo narrativo; `emphasis` usa <strong> no componente */
 export type StoryPart = { text: string; emphasis?: boolean }
 
 export type BeforeAfterDemo = {
@@ -58,132 +64,170 @@ export type BeforeAfterDemo = {
   after: AfterCv
 }
 
+const CONTACT_PLACEHOLDER =
+  'Salvador, BA · (XX) XXXXX-XXXX · candidato@email.com · linkedin.com/in/exemplo'
+
 const ptBR: BeforeAfterDemo = {
   beforeTopics: [
-    'Layout gráfico com colunas e cabeçalho escuro, como muitos CVs “criativos” entregues em PDF.',
-    'Competências listadas de forma genérica, pouco alinhadas à vaga de Dev Júnior .NET.',
-    'Resumo genérico de full stack, sem espelhar as palavras-chave do anúncio.',
-    'Experiência descrita sem priorizar C#, .NET e SQL para a triagem automática.',
+    'Seções “Sobre mim” e experiências em texto corrido, sem métricas nem palavras-chave da vaga em destaque.',
+    'Duas experiências em prosa: informações valiosas (usuários, sprint, stack) diluídas no parágrafo.',
+    'Habilidades em uma única linha, misturando tecnologias sem hierarquia para leitura ou ATS.',
+    'Pouca estrutura entre soft skills, entregas e stack — difícil escanear em segundos.',
   ],
   afterTopics: [
-    'Estrutura linear e legível, pensada para parsers ATS e leitura rápida por recrutadores.',
-    'Competências reorganizadas em blocos (linguagens, frameworks, dados, práticas).',
-    'Resumo reescrito com termos da vaga destacados visualmente.',
-    'Bullets da experiência enfatizam stack e resultados relevantes para a posição.',
+    'Resumo profissional com stack, números (8.000+ usuários, sprints) e keywords visíveis para ATS.',
+    'Competências agrupadas por categoria (linguagens, frameworks, cloud, práticas, soft skills).',
+    'Cada experiência com parágrafo de contexto + linhas de impacto com dados e keywords.',
+    'Título com cargo-alvo e tecnologias da vaga (.NET, C#, Azure, SQL Server, Docker) em destaque.',
   ],
   story: [
-    { text: 'Guilherme Oliveira', emphasis: true },
+    { text: 'Rafael Souza', emphasis: true },
     {
-      text: ' enviou o CV para uma vaga de Desenvolvedor Júnior em .NET. O AdaptCV reorganizou as competências, reescreveu o resumo com as ',
+      text: ' — Dev Backend em busca de vaga .NET/Azure. O AdaptCV criou o ',
     },
-    { text: 'keywords da vaga destacadas', emphasis: true },
+    { text: 'resumo profissional', emphasis: true },
+    { text: ' e a seção de ' },
+    { text: 'competências', emphasis: true },
     {
-      text: ', removeu informações irrelevantes e adotou um formato ',
+      text: ', reposicionou os números que já existiam no texto como ',
     },
-    { text: 'compatível com sistemas ATS', emphasis: true },
-    { text: '.' },
+    { text: 'conquistas mensuráveis', emphasis: true },
+    { text: ' e inseriu as ' },
+    { text: 'keywords da vaga', emphasis: true },
+    { text: ' nos lugares certos para passar no ATS.' },
   ],
   before: {
-    name: 'GUILHERME OLIVEIRA',
-    title: 'S O F T W A R E   D E V E L O P E R',
-    summary:
-      'Desenvolvedor de Software Full-Stack, com 1 ano de experiência na área de desenvolvimento, atuando principalmente com as tecnologias .NET (C#) e Python. Hoje busco oportunidade como Desenvolvedor Júnior para consolidar meu aprendizado.',
-    contact: [
-      '(XX) XXXXX-XXXX',
-      'Bahia',
-      'candidato@email.com',
-      'github.com/usuario',
-    ],
-    skills: [
-      { label: 'Linguagens', items: ['JavaScript', 'TypeScript', 'C#', 'Python'] },
-      { label: 'Bibliotecas', items: ['ReactJS', 'ShadcnUI'] },
-      { label: 'Frameworks', items: ['NextJS', 'TailwindCSS', 'Django', '.Net'] },
-      { label: 'Ferramentas', items: ['Git', 'Docker', 'Azure DevOps', 'PostgreSQL'] },
-      { label: 'Soft-Skills', items: ['Trabalho equipe', 'Comunicação', 'Aprendizagem'] },
-    ],
-    experience: {
-      company: 'TechSolutions',
-      role: 'Software Developer, Março 2025 – Atual',
-      bullets: [
-        'Colaborei no desenvolvimento usando C#, .NET, SQL Server no projeto interno de carga.',
-        'Atuei no desenvolvimento do MVP de métricas com Python, Django, PostgreSQL e Docker.',
-        'Realizei testes e documentações de funcionalidades.',
-      ],
+    name: 'Rafael Souza',
+    title: 'Desenvolvedor Backend',
+    mutedBanner: 'Documento original · texto contínuo',
+    sections: {
+      about: 'Sobre mim',
+      experience: 'Experiência',
+      skills: 'Habilidades',
+      education: 'Formação',
     },
+    aboutBody:
+      'Profissional da área de desenvolvimento de software com experiência em backend. Gosto de trabalhar em equipe e estou sempre aprendendo coisas novas. Tenho conhecimento em diversas tecnologias e busco oportunidade para crescer na carreira.',
+    jobs: [
+      {
+        company: 'DevCore Sistemas',
+        period: 'Desenvolvedor — 2022 a 2023',
+        body:
+          'Trabalhei participando do desenvolvimento de APIs usando .NET e C#. O sistema atendia cerca de 8 mil usuários. Utilizei SQL Server e Docker. Participei de reuniões de planejamento e ajudei na documentação. Também trabalhei com deploy em Azure.',
+      },
+      {
+        company: 'Altiva Tech',
+        period: 'Desenvolvedor — 2024 até hoje',
+        body:
+          'Fiz manutenção de um sistema legado. Corrigi vários bugs que o time de produto ia priorizando. O time tinha 2 semanas de sprint e eu entregava em média 3 a 4 tarefas por ciclo. Auxiliei o time frontend com integrações React quando necessário.',
+      },
+    ],
+    skillsLine:
+      '.NET, C#, SQL Server, Azure, Docker, REST API, React, Git, Scrum',
     education: {
       degree: 'Bacharelado em Ciências da Computação',
-      detail: 'Instituto Federal • 2022–2027',
-    },
-    sections: {
-      knowledge: 'Conhecimentos e Competências',
-      experience: 'Experiência Profissional',
-      education: 'Formação Acadêmica',
+      detail: 'Universidade Federal da Bahia — 2019–2023',
     },
   },
   after: {
-    name: 'Guilherme Oliveira',
-    subtitlePrefix: 'Dev. de Software Júnior',
-    titleKws: ['C#', '.NET', 'JavaScript', 'Desenvolvimento Web'],
-    contactLine:
-      '(XX) XXXXX-XXXX · candidato@email.com · Bahia, Brasil',
-    summary: [
-      'Desenvolvedor de Software com experiência prática em desenvolvimento web utilizando ',
-      { kw: 'C#' },
-      ', ',
+    name: 'Rafael Souza',
+    subtitlePrefix: 'Desenvolvedor Backend Pleno',
+    headlineKeywords: [
       { kw: '.NET' },
-      ' e ',
-      { kw: 'JavaScript' },
-      ', atuando na construção, manutenção e evolução de aplicações. Experiência com ',
-      { kw: 'backend' },
-      ', ',
-      { kw: 'bancos de dados' },
-      ' e integração de serviços. Forte interesse em ',
-      { kw: 'boas práticas' },
-      ' e ambientes colaborativos de alta performance.',
+      ' · ',
+      { kw: 'C#' },
+      ' · ',
+      { kw: 'Azure' },
+      ' · ',
+      { kw: 'SQL Server' },
+      ' · ',
+      { kw: 'Docker' },
     ],
-    skills: [
-      {
-        label: 'Linguagens',
-        items: [{ kw: 'C#' }, { kw: 'JavaScript' }, { kw: 'TypeScript' }, { kw: 'Python' }],
-      },
-      {
-        label: 'Frameworks',
-        items: [{ kw: '.NET / ASP.NET' }, { kw: 'React' }, 'Next.js', 'Django', 'TailwindCSS'],
-      },
-      { label: 'Banco de Dados', items: [{ kw: 'SQL Server' }, 'PostgreSQL'] },
-      { label: 'DevOps', items: ['Git', 'GitHub', { kw: 'Docker' }, 'Azure DevOps'] },
+    contactLine: CONTACT_PLACEHOLDER,
+    summary: [
+      'Desenvolvedor ',
+      { kw: 'Backend' },
+      ' com 3 anos de experiência em ',
+      { kw: 'APIs REST' },
+      ' com ',
+      { kw: '.NET/C#' },
+      ', atuando em plataformas com ',
+      { kw: '8.000+ usuários' },
+      ' em ambientes cloud com ',
+      { kw: 'Azure' },
+      ' e ',
+      { kw: 'Docker' },
+      '. Histórico consistente de entrega em ',
+      { kw: 'sprints ágeis' },
+      ' com 3–4 tarefas por ciclo e forte colaboração entre times técnicos.',
+    ],
+    skillRows: [
+      { label: 'Linguagens', parts: [{ kw: 'C#' }, ', JavaScript'] },
+      { label: 'Frameworks', parts: [{ kw: '.NET' }, ', ', { kw: 'ASP.NET Core' }] },
+      { label: 'Banco de Dados', parts: [{ kw: 'SQL Server' }] },
+      { label: 'Cloud & DevOps', parts: [{ kw: 'Azure' }, ', ', { kw: 'Docker' }] },
       {
         label: 'Práticas',
-        items: [{ kw: 'Testes de software' }, { kw: 'Clean Code' }, { kw: 'Dev. Ágil' }],
+        parts: [{ kw: 'REST APIs' }, ', ', { kw: 'Documentação técnica' }, ', ', { kw: 'Scrum' }],
+      },
+      {
+        label: 'Soft Skills',
+        parts: ['Trabalho em equipe, Comunicação entre times, Entrega contínua'],
       },
     ],
-    experience: {
-      roleTitle: 'Desenvolvedor de Software',
-      companyLine: 'TechSolutions — Brasil · Mar 2025 – Atual',
-      context: [
-        'Atuação no desenvolvimento de aplicações web, com foco em ',
-        { kw: 'backend' },
-        ' utilizando ',
-        { kw: 'C#' },
-        ' e integração com bancos de dados relacionais.',
-      ],
-      bullets: [
-        [{ kw: 'C#' }, ', ', { kw: '.NET' }, ' e ', { kw: 'SQL Server' }, ' no projeto de carga'],
-        [
+    jobs: [
+      {
+        roleTitle: 'Desenvolvedor Backend Pleno',
+        companyLine: 'DevCore Sistemas — Salvador, BA · Jan 2022 – Dez 2023',
+        intro: [
           'Desenvolvimento de ',
-          { kw: 'MVP' },
-          ' utilizando ',
-          { kw: 'Python' },
-          ', Django, PostgreSQL e ',
+          { kw: 'APIs REST' },
+          ' em ',
+          { kw: '.NET/C#' },
+          ' para plataforma com ',
+          { kw: '8.000+ usuários' },
+          ', infraestrutura containerizada via ',
           { kw: 'Docker' },
+          ' e deploy em ',
+          { kw: 'Azure' },
+          '.',
         ],
-        ['Manutenção e melhoria contínua de sistemas existentes'],
-        ['Testes, documentação e colaboração na definição de requisitos'],
-      ],
-    },
+        highlights: [
+          [
+            '— Documentou ',
+            { kw: '100%' },
+            ' dos contratos de API, eliminando ambiguidade entre times',
+          ],
+          [
+            '— Atuou em todas as fases: desenvolvimento, infraestrutura e documentação técnica',
+          ],
+        ],
+      },
+      {
+        roleTitle: 'Desenvolvedor Backend',
+        companyLine: 'Altiva Tech — Salvador, BA · Jan 2024 – Atual',
+        intro: [
+          'Evolução de sistema legado em ambiente ágil com ',
+          { kw: 'sprints de 2 semanas' },
+          '.',
+        ],
+        highlights: [
+          [
+            '— Entregou consistentemente ',
+            { kw: '3–4 tarefas por sprint' },
+            ', mantendo ritmo acima da média',
+          ],
+          [
+            '— Apoiou integrações ',
+            { kw: 'React' },
+            ' do time frontend, reduzindo dependências entre squads',
+          ],
+        ],
+      },
+    ],
     education: {
       degree: 'Bacharelado em Ciências da Computação',
-      detail: 'Instituto Federal · 2022–2027',
+      detail: 'Universidade Federal da Bahia — Salvador, BA · 2019–2023',
     },
     sections: {
       summary: 'Resumo Profissional',
@@ -196,123 +240,163 @@ const ptBR: BeforeAfterDemo = {
 
 const en: BeforeAfterDemo = {
   beforeTopics: [
-    'Graphic layout with columns and a dark header—common in heavily styled PDF resumes.',
-    'Skills listed in a generic way, weakly aligned with a Junior .NET developer role.',
-    'Generic full-stack summary that does not mirror the job posting keywords.',
-    'Experience bullets without prioritizing C#, .NET, and SQL for automated screening.',
+    '“About me” and job history in long paragraphs, with no standout metrics or job keywords.',
+    'Two roles in prose: valuable details (users, sprint length, stack) buried in the narrative.',
+    'Skills as one comma-separated line, mixing technologies without ATS-friendly grouping.',
+    'Little separation between soft skills, delivery, and stack—hard to scan quickly.',
   ],
   afterTopics: [
-    'Linear, scannable structure suited to ATS parsers and quick recruiter review.',
-    'Skills regrouped into clear blocks (languages, frameworks, data, practices).',
-    'Summary rewritten with job-relevant terms highlighted visually.',
-    'Experience bullets emphasize stack and outcomes that match the role.',
+    'Professional summary with stack, numbers (8,000+ users, sprints), and visible ATS keywords.',
+    'Skills grouped by category (languages, frameworks, cloud, practices, soft skills).',
+    'Each role with a context paragraph plus impact lines with data and keywords.',
+    'Headline targets the role with key technologies (.NET, C#, Azure, SQL Server, Docker) highlighted.',
   ],
   story: [
-    { text: 'Guilherme Oliveira', emphasis: true },
+    { text: 'Rafael Souza', emphasis: true },
     {
-      text: ' applied for a Junior .NET Developer role. AdaptCV reorganized his skills, rewrote the summary with ',
+      text: ' — Backend developer targeting .NET/Azure roles. AdaptCV created the ',
     },
-    { text: 'job keywords highlighted', emphasis: true },
+    { text: 'professional summary', emphasis: true },
+    { text: ' and ' },
+    { text: 'skills', emphasis: true },
     {
-      text: ', removed irrelevant details, and moved to a format ',
+      text: ' sections, reframed numbers already in the text as ',
     },
-    { text: 'compatible with ATS systems', emphasis: true },
-    { text: '.' },
+    { text: 'measurable wins', emphasis: true },
+    { text: ', and placed ' },
+    { text: 'job keywords', emphasis: true },
+    { text: ' where ATS parsers expect them.' },
   ],
   before: {
-    name: 'GUILHERME OLIVEIRA',
-    title: 'S O F T W A R E   D E V E L O P E R',
-    summary:
-      'Full-Stack Software Developer with 1 year of experience, working mainly with .NET (C#) and Python. Seeking a Junior Developer role to consolidate my learning.',
-    contact: ['(XX) XXXXX-XXXX', 'Bahia', 'candidato@email.com', 'github.com/usuario'],
-    skills: [
-      { label: 'Languages', items: ['JavaScript', 'TypeScript', 'C#', 'Python'] },
-      { label: 'Libraries', items: ['React', 'ShadcnUI'] },
-      { label: 'Frameworks', items: ['Next.js', 'Tailwind CSS', 'Django', '.NET'] },
-      { label: 'Tools', items: ['Git', 'Docker', 'Azure DevOps', 'PostgreSQL'] },
-      { label: 'Soft skills', items: ['Teamwork', 'Communication', 'Learning agility'] },
-    ],
-    experience: {
-      company: 'TechSolutions',
-      role: 'Software Developer, Mar 2025 – Present',
-      bullets: [
-        'Contributed to development with C#, .NET, and SQL Server on the internal load project.',
-        'Worked on an MVP for metrics using Python, Django, PostgreSQL, and Docker.',
-        'Performed testing and feature documentation.',
-      ],
+    name: 'Rafael Souza',
+    title: 'Backend Developer',
+    mutedBanner: 'Original résumé · narrative format',
+    sections: {
+      about: 'About me',
+      experience: 'Experience',
+      skills: 'Skills',
+      education: 'Education',
     },
+    aboutBody:
+      'Software development professional with backend experience. I enjoy teamwork and am always learning. I know several technologies and am looking for opportunities to grow.',
+    jobs: [
+      {
+        company: 'DevCore Sistemas',
+        period: 'Developer — 2022 to 2023',
+        body:
+          'I helped build APIs using .NET and C#. The system served about 8,000 users. I used SQL Server and Docker. I joined planning meetings and helped with documentation. I also worked on deployments in Azure.',
+      },
+      {
+        company: 'Altiva Tech',
+        period: 'Developer — 2024 to present',
+        body:
+          'I maintained a legacy system. I fixed many bugs prioritized by the product team. We ran two-week sprints and I delivered about 3 to 4 tasks per cycle on average. I supported the frontend team with React integrations when needed.',
+      },
+    ],
+    skillsLine:
+      '.NET, C#, SQL Server, Azure, Docker, REST API, React, Git, Scrum',
     education: {
       degree: 'B.S. in Computer Science',
-      detail: 'Federal Institute • 2022–2027',
-    },
-    sections: {
-      knowledge: 'Skills & Competencies',
-      experience: 'Work Experience',
-      education: 'Education',
+      detail: 'Federal University of Bahia — 2019–2023',
     },
   },
   after: {
-    name: 'Guilherme Oliveira',
-    subtitlePrefix: 'Junior Software Developer',
-    titleKws: ['C#', '.NET', 'JavaScript', 'Web development'],
-    contactLine: '(XX) XXXXX-XXXX · candidato@email.com · Bahia, Brazil',
-    summary: [
-      'Software Developer with hands-on web development experience using ',
-      { kw: 'C#' },
-      ', ',
+    name: 'Rafael Souza',
+    subtitlePrefix: 'Mid-level Backend Developer',
+    headlineKeywords: [
       { kw: '.NET' },
-      ', and ',
-      { kw: 'JavaScript' },
-      ', building, maintaining, and evolving applications. Experience with ',
-      { kw: 'backend' },
-      ', ',
-      { kw: 'databases' },
-      ', and service integration. Strong interest in ',
-      { kw: 'best practices' },
-      ' and high-performance collaborative environments.',
+      ' · ',
+      { kw: 'C#' },
+      ' · ',
+      { kw: 'Azure' },
+      ' · ',
+      { kw: 'SQL Server' },
+      ' · ',
+      { kw: 'Docker' },
     ],
-    skills: [
-      {
-        label: 'Languages',
-        items: [{ kw: 'C#' }, { kw: 'JavaScript' }, { kw: 'TypeScript' }, { kw: 'Python' }],
-      },
-      {
-        label: 'Frameworks',
-        items: [{ kw: '.NET / ASP.NET' }, { kw: 'React' }, 'Next.js', 'Django', 'Tailwind CSS'],
-      },
-      { label: 'Databases', items: [{ kw: 'SQL Server' }, 'PostgreSQL'] },
-      { label: 'DevOps', items: ['Git', 'GitHub', { kw: 'Docker' }, 'Azure DevOps'] },
+    contactLine:
+      'Salvador, BA · (XX) XXXXX-XXXX · candidato@email.com · linkedin.com/in/exemplo',
+    summary: [
+      { kw: 'Backend' },
+      ' developer with 3 years building ',
+      { kw: 'REST APIs' },
+      ' with ',
+      { kw: '.NET/C#' },
+      ' on platforms with ',
+      { kw: '8,000+ users' },
+      ' in cloud environments with ',
+      { kw: 'Azure' },
+      ' and ',
+      { kw: 'Docker' },
+      '. Consistent delivery in ',
+      { kw: 'agile sprints' },
+      ' with 3–4 tasks per cycle and strong collaboration across teams.',
+    ],
+    skillRows: [
+      { label: 'Languages', parts: [{ kw: 'C#' }, ', JavaScript'] },
+      { label: 'Frameworks', parts: [{ kw: '.NET' }, ', ', { kw: 'ASP.NET Core' }] },
+      { label: 'Databases', parts: [{ kw: 'SQL Server' }] },
+      { label: 'Cloud & DevOps', parts: [{ kw: 'Azure' }, ', ', { kw: 'Docker' }] },
       {
         label: 'Practices',
-        items: [{ kw: 'Software testing' }, { kw: 'Clean Code' }, { kw: 'Agile development' }],
+        parts: [{ kw: 'REST APIs' }, ', ', { kw: 'Technical documentation' }, ', ', { kw: 'Scrum' }],
+      },
+      {
+        label: 'Soft skills',
+        parts: ['Teamwork, Cross-team communication, Continuous delivery'],
       },
     ],
-    experience: {
-      roleTitle: 'Software Developer',
-      companyLine: 'TechSolutions — Brazil · Mar 2025 – Present',
-      context: [
-        'Building web applications with a focus on ',
-        { kw: 'backend' },
-        ' using ',
-        { kw: 'C#' },
-        ' and relational database integration.',
-      ],
-      bullets: [
-        [{ kw: 'C#' }, ', ', { kw: '.NET' }, ', and ', { kw: 'SQL Server' }, ' on the load project'],
-        [
-          { kw: 'MVP' },
-          ' development with ',
-          { kw: 'Python' },
-          ', Django, PostgreSQL, and ',
+    jobs: [
+      {
+        roleTitle: 'Mid-level Backend Developer',
+        companyLine: 'DevCore Sistemas — Salvador, BA · Jan 2022 – Dec 2023',
+        intro: [
+          'Built ',
+          { kw: 'REST APIs' },
+          ' with ',
+          { kw: '.NET/C#' },
+          ' for a platform with ',
+          { kw: '8,000+ users' },
+          ', containerized with ',
           { kw: 'Docker' },
+          ' and deployed on ',
+          { kw: 'Azure' },
+          '.',
         ],
-        ['Maintenance and continuous improvement of existing systems'],
-        ['Testing, documentation, and collaboration on requirements'],
-      ],
-    },
+        highlights: [
+          [
+            '— Documented ',
+            { kw: '100%' },
+            ' of API contracts, removing ambiguity between teams',
+          ],
+          ['— Worked across development, infrastructure, and technical documentation'],
+        ],
+      },
+      {
+        roleTitle: 'Backend Developer',
+        companyLine: 'Altiva Tech — Salvador, BA · Jan 2024 – Present',
+        intro: [
+          'Legacy system evolution in an agile environment with ',
+          { kw: 'two-week sprints' },
+          '.',
+        ],
+        highlights: [
+          [
+            '— Consistently delivered ',
+            { kw: '3–4 tasks per sprint' },
+            ', above team average',
+          ],
+          [
+            '— Supported ',
+            { kw: 'React' },
+            ' integrations for frontend, reducing cross-squad dependencies',
+          ],
+        ],
+      },
+    ],
     education: {
       degree: 'B.S. in Computer Science',
-      detail: 'Federal Institute · 2022–2027',
+      detail: 'Federal University of Bahia — Salvador, BA · 2019–2023',
     },
     sections: {
       summary: 'Professional summary',
@@ -325,124 +409,166 @@ const en: BeforeAfterDemo = {
 
 const es: BeforeAfterDemo = {
   beforeTopics: [
-    'Diseño gráfico con columnas y cabecera oscura, típico de CV en PDF muy elaborados.',
-    'Competencias listadas de forma genérica, poco alineadas con un rol Junior .NET.',
-    'Resumen full stack genérico que no refleja las palabras clave del anuncio.',
-    'Experiencia sin priorizar C#, .NET y SQL para la triage automática.',
+    '“Sobre mí” e historial en párrafos largos, sin métricas ni palabras clave destacadas.',
+    'Dos experiencias en prosa: datos valiosos (usuarios, sprint, stack) diluidos en el texto.',
+    'Habilidades en una sola línea, mezclando tecnologías sin jerarquía para ATS o lectura rápida.',
+    'Poca separación entre soft skills, entregas y stack — difícil de escanear.',
   ],
   afterTopics: [
-    'Estructura lineal y fácil de escanear, pensada para ATS y lectura rápida.',
-    'Competencias reorganizadas en bloques claros (lenguajes, frameworks, datos, prácticas).',
-    'Resumen reescrito con términos del puesto resaltados visualmente.',
-    'Viñetas que enfatizan stack y resultados relevantes para el cargo.',
+    'Resumen con stack, cifras (8.000+ usuarios, sprints) y keywords visibles para ATS.',
+    'Competencias agrupadas por categoría (lenguajes, frameworks, cloud, prácticas, soft skills).',
+    'Cada rol con contexto + líneas de impacto con datos y keywords.',
+    'Título alineado al puesto con tecnologías (.NET, C#, Azure, SQL Server, Docker) resaltadas.',
   ],
   story: [
-    { text: 'Guilherme Oliveira', emphasis: true },
+    { text: 'Rafael Souza', emphasis: true },
     {
-      text: ' envió su CV para una vacante de Desarrollador Junior en .NET. AdaptCV reorganizó las competencias, reescribió el resumen con las ',
+      text: ' — Desarrollador backend orientado a .NET/Azure. AdaptCV creó el ',
     },
-    { text: 'palabras clave del puesto resaltadas', emphasis: true },
+    { text: 'resumen profesional', emphasis: true },
+    { text: ' y la sección de ' },
+    { text: 'competencias', emphasis: true },
     {
-      text: ', eliminó información irrelevante y adoptó un formato ',
+      text: ', reordenó los números del texto como ',
     },
-    { text: 'compatible con sistemas ATS', emphasis: true },
-    { text: '.' },
+    { text: 'logros medibles', emphasis: true },
+    { text: ' e insertó las ' },
+    { text: 'palabras clave del puesto', emphasis: true },
+    { text: ' donde los ATS las esperan.' },
   ],
   before: {
-    name: 'GUILHERME OLIVEIRA',
-    title: 'S O F T W A R E   D E V E L O P E R',
-    summary:
-      'Desarrollador Full-Stack con 1 año de experiencia, trabajando principalmente con .NET (C#) y Python. Busco un rol Junior para consolidar mi aprendizaje.',
-    contact: ['(XX) XXXXX-XXXX', 'Bahia', 'candidato@email.com', 'github.com/usuario'],
-    skills: [
-      { label: 'Lenguajes', items: ['JavaScript', 'TypeScript', 'C#', 'Python'] },
-      { label: 'Bibliotecas', items: ['React', 'ShadcnUI'] },
-      { label: 'Frameworks', items: ['Next.js', 'Tailwind CSS', 'Django', '.NET'] },
-      { label: 'Herramientas', items: ['Git', 'Docker', 'Azure DevOps', 'PostgreSQL'] },
-      { label: 'Soft skills', items: ['Trabajo en equipo', 'Comunicación', 'Aprendizaje'] },
-    ],
-    experience: {
-      company: 'TechSolutions',
-      role: 'Software Developer, mar 2025 – Actual',
-      bullets: [
-        'Colaboré en desarrollo con C#, .NET y SQL Server en el proyecto interno de carga.',
-        'Participé en el MVP de métricas con Python, Django, PostgreSQL y Docker.',
-        'Pruebas y documentación de funcionalidades.',
-      ],
+    name: 'Rafael Souza',
+    title: 'Desarrollador Backend',
+    mutedBanner: 'Documento original · texto continuo',
+    sections: {
+      about: 'Sobre mí',
+      experience: 'Experiencia',
+      skills: 'Habilidades',
+      education: 'Formación',
     },
+    aboutBody:
+      'Profesional del desarrollo de software con experiencia en backend. Me gusta el trabajo en equipo y aprender. Conozco varias tecnologías y busco crecer en la carrera.',
+    jobs: [
+      {
+        company: 'DevCore Sistemas',
+        period: 'Desarrollador — 2022 a 2023',
+        body:
+          'Participé en el desarrollo de APIs con .NET y C#. El sistema atendía a unos 8 mil usuarios. Usé SQL Server y Docker. Asistí a reuniones de planificación y ayudé con la documentación. También trabajé con despliegues en Azure.',
+      },
+      {
+        company: 'Altiva Tech',
+        period: 'Desarrollador — 2024 hasta hoy',
+        body:
+          'Mantuve un sistema legado. Corregí muchos bugs priorizados por producto. El equipo tenía sprints de 2 semanas y entregaba de media 3 a 4 tareas por ciclo. Apoyé al frontend con integraciones React cuando hacía falta.',
+      },
+    ],
+    skillsLine:
+      '.NET, C#, SQL Server, Azure, Docker, REST API, React, Git, Scrum',
     education: {
       degree: 'Grado en Ciencias de la Computación',
-      detail: 'Instituto Federal • 2022–2027',
-    },
-    sections: {
-      knowledge: 'Conocimientos y competencias',
-      experience: 'Experiencia profesional',
-      education: 'Formación académica',
+      detail: 'Universidad Federal de Bahia — 2019–2023',
     },
   },
   after: {
-    name: 'Guilherme Oliveira',
-    subtitlePrefix: 'Desarrollador de software Junior',
-    titleKws: ['C#', '.NET', 'JavaScript', 'Desarrollo web'],
-    contactLine: '(XX) XXXXX-XXXX · candidato@email.com · Bahia, Brasil',
-    summary: [
-      'Desarrollador de software con experiencia práctica en desarrollo web con ',
-      { kw: 'C#' },
-      ', ',
+    name: 'Rafael Souza',
+    subtitlePrefix: 'Desarrollador Backend Pleno',
+    headlineKeywords: [
       { kw: '.NET' },
-      ' y ',
-      { kw: 'JavaScript' },
-      ', construyendo y manteniendo aplicaciones. Experiencia con ',
-      { kw: 'backend' },
-      ', ',
-      { kw: 'bases de datos' },
-      ' e integración de servicios. Fuerte interés en ',
-      { kw: 'buenas prácticas' },
-      ' y entornos colaborativos de alto rendimiento.',
+      ' · ',
+      { kw: 'C#' },
+      ' · ',
+      { kw: 'Azure' },
+      ' · ',
+      { kw: 'SQL Server' },
+      ' · ',
+      { kw: 'Docker' },
     ],
-    skills: [
-      {
-        label: 'Lenguajes',
-        items: [{ kw: 'C#' }, { kw: 'JavaScript' }, { kw: 'TypeScript' }, { kw: 'Python' }],
-      },
-      {
-        label: 'Frameworks',
-        items: [{ kw: '.NET / ASP.NET' }, { kw: 'React' }, 'Next.js', 'Django', 'Tailwind CSS'],
-      },
-      { label: 'Bases de datos', items: [{ kw: 'SQL Server' }, 'PostgreSQL'] },
-      { label: 'DevOps', items: ['Git', 'GitHub', { kw: 'Docker' }, 'Azure DevOps'] },
+    contactLine:
+      'Salvador, BA · (XX) XXXXX-XXXX · candidato@email.com · linkedin.com/in/exemplo',
+    summary: [
+      'Desarrollador ',
+      { kw: 'Backend' },
+      ' con 3 años en ',
+      { kw: 'APIs REST' },
+      ' con ',
+      { kw: '.NET/C#' },
+      ', en plataformas con ',
+      { kw: '8.000+ usuarios' },
+      ' en cloud con ',
+      { kw: 'Azure' },
+      ' y ',
+      { kw: 'Docker' },
+      '. Entrega constante en ',
+      { kw: 'sprints ágiles' },
+      ' con 3–4 tareas por ciclo y fuerte colaboración entre equipos.',
+    ],
+    skillRows: [
+      { label: 'Lenguajes', parts: [{ kw: 'C#' }, ', JavaScript'] },
+      { label: 'Frameworks', parts: [{ kw: '.NET' }, ', ', { kw: 'ASP.NET Core' }] },
+      { label: 'Bases de datos', parts: [{ kw: 'SQL Server' }] },
+      { label: 'Cloud y DevOps', parts: [{ kw: 'Azure' }, ', ', { kw: 'Docker' }] },
       {
         label: 'Prácticas',
-        items: [{ kw: 'Pruebas de software' }, { kw: 'Clean Code' }, { kw: 'Desarrollo ágil' }],
+        parts: [{ kw: 'REST APIs' }, ', ', { kw: 'Documentación técnica' }, ', ', { kw: 'Scrum' }],
+      },
+      {
+        label: 'Soft skills',
+        parts: ['Trabajo en equipo, Comunicación entre equipos, Entrega continua'],
       },
     ],
-    experience: {
-      roleTitle: 'Desarrollador de software',
-      companyLine: 'TechSolutions — Brasil · mar 2025 – Actual',
-      context: [
-        'Desarrollo de aplicaciones web con foco en ',
-        { kw: 'backend' },
-        ' con ',
-        { kw: 'C#' },
-        ' e integración con bases de datos relacionales.',
-      ],
-      bullets: [
-        [{ kw: 'C#' }, ', ', { kw: '.NET' }, ' y ', { kw: 'SQL Server' }, ' en el proyecto de carga'],
-        [
+    jobs: [
+      {
+        roleTitle: 'Desarrollador Backend Pleno',
+        companyLine: 'DevCore Sistemas — Salvador, BA · ene 2022 – dic 2023',
+        intro: [
           'Desarrollo de ',
-          { kw: 'MVP' },
-          ' con ',
-          { kw: 'Python' },
-          ', Django, PostgreSQL y ',
+          { kw: 'APIs REST' },
+          ' en ',
+          { kw: '.NET/C#' },
+          ' para plataforma con ',
+          { kw: '8.000+ usuarios' },
+          ', infraestructura con ',
           { kw: 'Docker' },
+          ' y despliegue en ',
+          { kw: 'Azure' },
+          '.',
         ],
-        ['Mantenimiento y mejora continua de sistemas existentes'],
-        ['Pruebas, documentación y colaboración en requisitos'],
-      ],
-    },
+        highlights: [
+          [
+            '— Documentó el ',
+            { kw: '100%' },
+            ' de contratos de API, reduciendo ambigüedad entre equipos',
+          ],
+          [
+            '— Participó en desarrollo, infraestructura y documentación técnica',
+          ],
+        ],
+      },
+      {
+        roleTitle: 'Desarrollador Backend',
+        companyLine: 'Altiva Tech — Salvador, BA · ene 2024 – Actual',
+        intro: [
+          'Evolución de sistema legado en entorno ágil con ',
+          { kw: 'sprints de 2 semanas' },
+          '.',
+        ],
+        highlights: [
+          [
+            '— Entregó de forma constante ',
+            { kw: '3–4 tareas por sprint' },
+            ', por encima del promedio',
+          ],
+          [
+            '— Apoyó integraciones ',
+            { kw: 'React' },
+            ' del frontend, reduciendo dependencias entre squads',
+          ],
+        ],
+      },
+    ],
     education: {
       degree: 'Grado en Ciencias de la Computación',
-      detail: 'Instituto Federal · 2022–2027',
+      detail: 'Universidad Federal de Bahia — Salvador, BA · 2019–2023',
     },
     sections: {
       summary: 'Resumen profesional',

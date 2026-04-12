@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { useLocale, useTranslations } from '@/lib/i18n'
 import {
   getBeforeAfterDemo,
@@ -26,150 +26,122 @@ function renderTokens(tokens: Token[]) {
   )
 }
 
+function BeforeSectionLabel({ children }: { children: ReactNode }) {
+  return (
+    <div className="mb-1 mt-2.5 border-b border-neutral-400 pb-0.5 text-[9px] font-normal uppercase tracking-[0.08em] text-neutral-600">
+      {children}
+    </div>
+  )
+}
+
+/**
+ * Visual “CV fraco”: fundo branco, hierarquia e estrutura só em cinza —
+ * datado, sem preto nem layout premium.
+ */
 function BeforePanel({ data }: { data: BeforeCv }) {
   return (
-    <div className="absolute inset-0 overflow-hidden bg-card p-5 md:p-[22px] font-sans text-left">
-      <div className="-mx-5 md:-mx-[22px] -mt-5 md:-mt-[22px] mb-3.5 bg-[#232323] px-[18px] py-3.5 text-white md:mb-3.5">
-        <div className="text-xl font-bold tracking-[0.2em]">{data.name}</div>
-        <div className="mt-1 text-[9px] tracking-[0.35em] text-neutral-400">
-          {data.title}
-        </div>
-      </div>
-      <p className="mb-2.5 text-[10px] leading-relaxed text-neutral-700">
-        {data.summary}
-      </p>
-      <div className="-mx-5 md:-mx-[22px] mb-3.5 flex flex-wrap gap-3.5 bg-[#555555] px-[18px] py-1.5 text-[9.5px] text-neutral-300">
-        {data.contact.map((c, i) => (
-          <span key={i}>{c}</span>
-        ))}
-      </div>
-      <div className="mb-1 border-b border-neutral-200 pb-1 text-[9px] font-normal uppercase tracking-[0.12em] text-neutral-500">
-        {data.sections.knowledge}
-      </div>
-      <div className="mb-3 grid grid-cols-5 gap-1.5">
-        {data.skills.map((s) => (
-          <div key={s.label}>
-            <div className="mb-0.5 text-[9px] font-bold text-neutral-900">
-              {s.label}
+    <div
+      className={cn(
+        'absolute inset-0 box-border h-full overflow-hidden text-left',
+        'border border-neutral-400 bg-white text-neutral-700',
+        'font-serif [color-scheme:light]'
+      )}
+    >
+      <div className="flex h-full min-h-0 flex-col px-8 pb-3 pt-3.5 sm:px-10 md:px-12">
+        <header className="mb-2 shrink-0 border-b border-neutral-400 pb-2.5">
+          <div className="text-[17px] font-bold tracking-tight text-neutral-800">{data.name}</div>
+          <div className="mt-0.5 text-[10px] font-normal text-neutral-600">{data.title}</div>
+          <p className="mb-0 mt-1.5 border-l-2 border-neutral-400 pl-2 text-[9px] leading-snug text-neutral-600">
+            {data.mutedBanner}
+          </p>
+        </header>
+
+        <div className="min-h-0 flex-1 overflow-hidden">
+          <BeforeSectionLabel>{data.sections.about}</BeforeSectionLabel>
+          <p className="mb-2 text-[10px] leading-[1.65] text-neutral-700">{data.aboutBody}</p>
+
+          <BeforeSectionLabel>{data.sections.experience}</BeforeSectionLabel>
+          {data.jobs.map((job, i) => (
+            <div key={i} className="mb-2">
+              <div className="text-[10.5px] font-semibold text-neutral-800">{job.company}</div>
+              <div className="mb-0.5 text-[9.5px] text-neutral-600">{job.period}</div>
+              <p className="m-0 text-[10px] leading-[1.65] text-neutral-700">{job.body}</p>
             </div>
-            {s.items.map((item, j) => (
-              <div key={j} className="text-[9px] leading-snug text-neutral-600">
-                {item}
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-      <div className="grid grid-cols-2 gap-3.5">
-        <div>
-          <div className="mb-1 border-b border-neutral-200 pb-1 text-[9px] uppercase tracking-[0.12em] text-neutral-500">
-            {data.sections.experience}
-          </div>
-          <div className="text-[11px] font-bold text-neutral-900">
-            {data.experience.company}
-          </div>
-          <div className="mb-1 text-[9px] text-neutral-500">
-            {data.experience.role}
-          </div>
-          <ul className="ml-3 list-disc pl-0 text-[9px] text-neutral-600">
-            {data.experience.bullets.map((b, i) => (
-              <li key={i} className="mb-0.5 leading-snug">
-                {b}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <div className="mb-1 border-b border-neutral-200 pb-1 text-[9px] uppercase tracking-[0.12em] text-neutral-500">
-            {data.sections.education}
-          </div>
-          <div className="text-[11px] font-bold text-neutral-900">
-            {data.education.degree}
-          </div>
-          <div className="text-[9px] text-neutral-500">{data.education.detail}</div>
+          ))}
+
+          <BeforeSectionLabel>{data.sections.skills}</BeforeSectionLabel>
+          <p className="mb-2 border border-dashed border-neutral-400 bg-neutral-200/90 px-2 py-1.5 text-[10px] leading-[1.75] text-neutral-700">
+            {data.skillsLine}
+          </p>
+
+          <BeforeSectionLabel>{data.sections.education}</BeforeSectionLabel>
+          <div className="text-[10.5px] font-semibold text-neutral-800">{data.education.degree}</div>
+          <div className="text-[9.5px] text-neutral-600">{data.education.detail}</div>
         </div>
       </div>
     </div>
   )
 }
 
+function AfterSectionLabel({ children }: { children: ReactNode }) {
+  return (
+    <div className="mb-1 mt-2.5 border-b border-primary/20 pb-0.5 text-[9px] font-medium uppercase tracking-[0.13em] text-primary/80">
+      {children}
+    </div>
+  )
+}
+
+/** Visual “novo”: fundo claro, leve tom azul e primary nos destaques. */
 function AfterPanel({ data }: { data: AfterCv }) {
   return (
-    <div className="absolute inset-0 overflow-hidden bg-card p-5 md:p-[22px] font-sans text-left">
-      <div className="mb-0.5 text-lg font-bold tracking-wide text-foreground">
-        {data.name}
-      </div>
-      <div className="mb-1.5 text-[10px] font-medium text-primary">
+    <div
+      className={cn(
+        'absolute inset-0 box-border h-full overflow-hidden bg-gradient-to-b from-card via-card to-primary/[0.06]',
+        'px-8 py-[18px] font-sans text-left shadow-[inset_0_1px_0_0_hsl(var(--primary)/0.12)] ring-1 ring-primary/10 dark:to-primary/[0.09] dark:ring-primary/20 sm:px-10 md:px-12'
+      )}
+    >
+      <div className="mb-0.5 text-[17px] font-bold text-foreground">{data.name}</div>
+      <div className="mb-1 text-[10px] font-medium text-primary">
         {data.subtitlePrefix}
         <span className="text-muted-foreground"> | </span>
-        {data.titleKws.map((kw, i) => (
-          <span key={i}>
-            <span className="rounded px-0.5 bg-primary/15 text-primary font-medium">
-              {kw}
-            </span>
-            {i < data.titleKws.length - 1 && (
-              <span className="text-neutral-400"> · </span>
-            )}
-          </span>
-        ))}
+        {renderTokens(data.headlineKeywords)}
       </div>
-      <div className="mb-0.5 text-[10px] text-muted-foreground">{data.contactLine}</div>
+      <div className="mb-2 text-[9.5px] text-muted-foreground">{data.contactLine}</div>
 
-      <div className="mb-1 mt-2 border-b border-border pb-1 text-[9px] uppercase tracking-[0.12em] text-muted-foreground">
-        {data.sections.summary}
-      </div>
-      <p className="mb-2 text-[10px] leading-relaxed text-foreground">
+      <AfterSectionLabel>{data.sections.summary}</AfterSectionLabel>
+      <p className="mb-2 text-[10px] leading-[1.7] text-foreground">
         {renderTokens(data.summary)}
       </p>
 
-      <div className="mb-1 border-b border-border pb-1 text-[9px] uppercase tracking-[0.12em] text-muted-foreground">
-        {data.sections.keySkills}
-      </div>
-      <div className="mb-2.5 space-y-0.5">
-        {data.skills.map((s) => (
-          <div key={s.label} className="text-[10px] leading-relaxed text-foreground">
-            <span className="mr-1 font-medium text-foreground">{s.label}:</span>
-            {s.items.map((item, i) => (
-              <span key={i}>
-                {typeof item === 'string' ? (
-                  <span>{item}</span>
-                ) : (
-                  <span className="rounded px-0.5 bg-primary/15 text-primary font-medium">
-                    {item.kw}
-                  </span>
-                )}
-                {i < s.items.length - 1 && <span>, </span>}
-              </span>
-            ))}
+      <AfterSectionLabel>{data.sections.keySkills}</AfterSectionLabel>
+      <div className="mb-2 space-y-0.5 text-[10px] leading-[1.85] text-foreground">
+        {data.skillRows.map((row) => (
+          <div key={row.label}>
+            <span className="font-medium">{row.label}:</span>{' '}
+            {renderTokens(row.parts)}
           </div>
         ))}
       </div>
 
-      <div className="mb-1 border-b border-border pb-1 text-[9px] uppercase tracking-[0.12em] text-muted-foreground">
-        {data.sections.experience}
-      </div>
-      <div className="text-[11px] font-semibold text-foreground">
-        {data.experience.roleTitle}
-      </div>
-      <div className="mb-1 text-[9px] text-muted-foreground">
-        {data.experience.companyLine}
-      </div>
-      <p className="mb-1 text-[10px] leading-relaxed text-neutral-700">
-        {renderTokens(data.experience.context)}
-      </p>
-      <div className="space-y-0.5 text-[10px] leading-relaxed text-foreground">
-        {data.experience.bullets.map((b, i) => (
-          <div key={i}>– {renderTokens(b)}</div>
-        ))}
-      </div>
+      <AfterSectionLabel>{data.sections.experience}</AfterSectionLabel>
+      {data.jobs.map((job, ji) => (
+        <div key={ji} className={ji < data.jobs.length - 1 ? 'mb-2.5' : ''}>
+          <div className="text-[10.5px] font-medium text-foreground">{job.roleTitle}</div>
+          <div className="mb-1 text-[9.5px] text-muted-foreground">{job.companyLine}</div>
+          <p className="mb-1 text-[10px] leading-[1.65] text-foreground">
+            {renderTokens(job.intro)}
+          </p>
+          <div className="space-y-0.5 text-[10px] leading-[1.75] text-foreground">
+            {job.highlights.map((line, hi) => (
+              <div key={hi}>{renderTokens(line)}</div>
+            ))}
+          </div>
+        </div>
+      ))}
 
-      <div className="mb-1 mt-3 border-b border-border pb-1 text-[9px] uppercase tracking-[0.12em] text-muted-foreground">
-        {data.sections.education}
-      </div>
-      <div className="text-[11px] font-semibold text-foreground">
-        {data.education.degree}
-      </div>
-      <div className="text-[9px] text-muted-foreground">{data.education.detail}</div>
+      <AfterSectionLabel>{data.sections.education}</AfterSectionLabel>
+      <div className="text-[10.5px] font-medium text-foreground">{data.education.degree}</div>
+      <div className="text-[9.5px] text-muted-foreground">{data.education.detail}</div>
     </div>
   )
 }
@@ -412,7 +384,7 @@ export default function BeforeAfterCVSlider() {
         aria-label={t('home.beforeAfter.sliderAriaLabel')}
         tabIndex={0}
         className={cn(
-          'relative h-[460px] cursor-ew-resize select-none overflow-hidden rounded-xl border border-border bg-card',
+          'relative h-[520px] cursor-ew-resize select-none overflow-hidden rounded-xl border border-border bg-card',
           'touch-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
         )}
         onMouseDown={(e) => {
