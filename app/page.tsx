@@ -1,5 +1,6 @@
 'use client'
 
+import type { ReactNode } from 'react'
 import Link from 'next/link'
 import {
   FileText,
@@ -16,11 +17,17 @@ import {
   Users,
 } from 'lucide-react'
 import { buttonVariants } from './components/ui/button'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from './components/ui/accordion'
 import { cn } from '@/lib/utils'
 import { PACKAGES } from '@/lib/packages'
 import CVUploadSection from './components/CVUploadSection'
 import BeforeAfterCVSlider from './components/BeforeAfterCVSlider'
-import LanguageSwitcher from './components/LanguageSwitcher'
+import { SiteHeader } from './components/SiteHeader'
 import { useTranslations } from '@/lib/i18n'
 import { trackBuyCreditsClick } from '@/lib/analytics/client'
 
@@ -39,68 +46,56 @@ const BENEFITS_KEYS = [
   { icon: Users, titleKey: 'home.benefits.ats', descKey: 'home.benefits.atsDesc' },
 ]
 
+const FAQ_ITEM_KEYS = [
+  { q: 'home.faq.qAts', a: 'home.faq.aAts' },
+  { q: 'home.faq.qFirstFree', a: 'home.faq.aFirstFree' },
+  { q: 'home.faq.qCredits', a: 'home.faq.aCredits' },
+  { q: 'home.faq.qNoCredits', a: 'home.faq.aNoCredits' },
+  { q: 'home.faq.qFormats', a: 'home.faq.aFormats' },
+  { q: 'home.faq.qJobDesc', a: 'home.faq.aJobDesc' },
+  { q: 'home.faq.qDelivery', a: 'home.faq.aDelivery' },
+  { q: 'home.faq.qData', a: 'home.faq.aData' },
+  { q: 'home.faq.qPayment', a: 'home.faq.aPayment' },
+  {
+    q: 'home.faq.qSupport',
+    a: 'home.faq.aSupport',
+    emailKey: 'home.faq.supportEmail',
+  },
+] as const
+
+function faqAnswerContent(
+  item: (typeof FAQ_ITEM_KEYS)[number],
+  translate: (key: string) => string
+): ReactNode {
+  const text = translate(item.a)
+  if (!('emailKey' in item) || !item.emailKey) {
+    return text
+  }
+  const linkEmail = translate(item.emailKey)
+  const i = text.indexOf(linkEmail)
+  if (i < 0) {
+    return text
+  }
+  return (
+    <>
+      {text.slice(0, i)}
+      <a
+        href={`mailto:${linkEmail}`}
+        className="font-medium text-primary underline-offset-2 hover:underline"
+      >
+        {linkEmail}
+      </a>
+      {text.slice(i + linkEmail.length)}
+    </>
+  )
+}
+
 export default function Home() {
   const t = useTranslations()
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="animate-header fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
-        <div className="container mx-auto px-4 h-16">
-          <div className="max-w-6xl mx-auto h-full flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center">
-              <FileText className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold text-foreground">{t('common.brand')}</span>
-          </Link>
-
-          <nav className="hidden md:flex items-center gap-8">
-            <a
-              href="#beneficios"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {t('home.nav.benefits')}
-            </a>
-            <a
-              href="#como-funciona"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {t('home.nav.howItWorks')}
-            </a>
-            <a
-              href="#creditos"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {t('home.nav.credits')}
-            </a>
-            <a
-              href="#preco"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {t('home.nav.pricing')}
-            </a>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <LanguageSwitcher />
-            <Link
-              href="/comprar"
-              onClick={() => trackBuyCreditsClick('header')}
-              className={cn(buttonVariants({ variant: 'heroOutline', size: 'sm' }), 'hidden sm:inline-flex')}
-            >
-              {t('home.nav.buyCredits')}
-            </Link>
-            <Link
-              href="#upload"
-              className={cn(buttonVariants({ variant: 'hero', size: 'sm' }))}
-            >
-              {t('home.nav.startFree')}
-            </Link>
-          </div>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main>
         {/* Hero */}
@@ -390,6 +385,43 @@ export default function Home() {
                 </Link>
               </p>
             </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="faq"
+          className="py-24 bg-background border-t border-border/60"
+          aria-labelledby="faq-heading"
+        >
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto">
+              <div className="text-center mb-12">
+                <h2
+                  id="faq-heading"
+                  className="text-3xl md:text-4xl font-bold mb-4"
+                >
+                  {t('home.faq.title')}{' '}
+                  <span className="text-gradient">{t('home.faq.titleHighlight')}</span>
+                </h2>
+                <p className="text-muted-foreground">{t('home.faq.subtitle')}</p>
+              </div>
+              <Accordion
+                type="single"
+                collapsible
+                className="rounded-2xl border border-border/50 bg-card shadow-soft overflow-hidden"
+              >
+                {FAQ_ITEM_KEYS.map((item, index) => (
+                  <AccordionItem key={item.q} value={`faq-${index}`}>
+                    <AccordionTrigger>{t(item.q)}</AccordionTrigger>
+                    <AccordionContent>
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        {faqAnswerContent(item, t)}
+                      </p>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </div>
           </div>
         </section>

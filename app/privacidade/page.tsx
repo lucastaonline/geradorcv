@@ -1,15 +1,28 @@
 import type { Metadata } from 'next'
 import PrivacyContent from './PrivacyContent'
+import { getServerLocale } from '@/lib/i18n/get-server-locale'
+import { getTranslation } from '@/lib/i18n/get'
+import type { Locale } from '@/lib/i18n/types'
+import ptBR from '@/lib/i18n/translations/pt-BR.json'
+import en from '@/lib/i18n/translations/en.json'
+import es from '@/lib/i18n/translations/es.json'
 
-export const metadata: Metadata = {
-  title: 'Política de Privacidade — AdaptCV',
-  description:
-    'Como o AdaptCV coleta, usa e protege seus dados pessoais, em conformidade com a LGPD (Lei nº 13.709/2018).',
-  openGraph: {
-    title: 'Política de Privacidade — AdaptCV',
-    description:
-      'Como o AdaptCV coleta, usa e protege seus dados pessoais, em conformidade com a LGPD.',
-  },
+const translations: Record<Locale, Record<string, unknown>> = {
+  'pt-BR': ptBR as Record<string, unknown>,
+  en: en as Record<string, unknown>,
+  es: es as Record<string, unknown>,
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale()
+  const dict = translations[locale]
+  const title = getTranslation(dict, 'legal.seo.privacyTitle') ?? 'AdaptCV'
+  const description = getTranslation(dict, 'legal.seo.privacyDescription') ?? ''
+  return {
+    title,
+    description,
+    openGraph: { title, description: description || undefined },
+  }
 }
 
 export default function PrivacidadePage() {
